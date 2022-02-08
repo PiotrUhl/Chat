@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "ChatService\Service.csproj", "{6057780F-DAE7-4E1A-BD36-328141FAA710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "ChatService\Service.csproj", "{6057780F-DAE7-4E1A-BD36-328141FAA710}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E3E2691B-FD23-4D08-B397-047529505CA1} = {E3E2691B-FD23-4D08-B397-047529505CA1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{E3E2691B-FD23-4D08-B397-047529505CA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{E3E2691B-FD23-4D08-B397-047529505CA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{23E25981-D34B-425D-BD14-6637D1FD0D5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{E3E2691B-FD23-4D08-B397-047529505CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3E2691B-FD23-4D08-B397-047529505CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3E2691B-FD23-4D08-B397-047529505CA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E25981-D34B-425D-BD14-6637D1FD0D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E25981-D34B-425D-BD14-6637D1FD0D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E25981-D34B-425D-BD14-6637D1FD0D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E25981-D34B-425D-BD14-6637D1FD0D5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
