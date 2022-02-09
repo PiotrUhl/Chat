@@ -1,1 +1,1 @@
-﻿Scaffold-DbContext "Password=zaq1@WSX;Persist Security Info=True;User ID=sa;Initial Catalog=Chat;Data Source=WYPASIAK\SQLSERVER" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context Context -ContextDir .
+﻿Scaffold-DbContext "Password=zaq1@WSX;Persist Security Info=True;User ID=sa;Initial Catalog=Chat;Data Source=WYPASIAK\SQLSERVER" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model -Context Context -ContextDir . -force

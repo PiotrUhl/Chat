@@ -5,12 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Chat.Server {
-	internal enum MessageType : byte {
-		Unknown = 0,
-		Check,
-		GetNew,
-		GetOld,
-		New,
-		Read
+	internal interface IResponse {
+		public byte[] GetBytes();
 	}
 }

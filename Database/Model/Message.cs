@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Database.Model
+namespace Chat.Database.Model
 {
     public partial class Message
     {
         public long Id { get; set; }
         public int SenderId { get; set; }
         public int RecipentId { get; set; }
-        public string Message1 { get; set; }
+        public string Text { get; set; }
         public bool Delivered { get; set; }
         public bool Displayed { get; set; }
     }

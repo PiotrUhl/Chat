@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Database.Model;
+using Chat.Database.Model;
 
 #nullable disable
 
-namespace Database
+namespace Chat.Database
 {
     public partial class Context : DbContext
     {
@@ -59,10 +59,9 @@ namespace Database
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
-                entity.Property(e => e.Message1)
+                entity.Property(e => e.Text)
                     .IsRequired()
-                    .HasColumnType("ntext")
-                    .HasColumnName("Message");
+                    .HasColumnType("ntext");
             });
 
             OnModelCreatingPartial(modelBuilder);

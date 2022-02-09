@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Chat.Server {
-	internal enum MessageType : byte {
+	public enum ResponseType {
 		Unknown = 0,
-		Check,
-		GetNew,
-		GetOld,
+		CheckNoNew,
+		CheckNew,
 		New,
-		Read
+		Read,
+		GetNew
 	}
 }

@@ -1,0 +1,45 @@
+Klient>Server:
+	1 - typ wiadomości
+		Check //sprawdzenie czy są nowe wiadomości
+			4 - id wysyłającego
+			8 - id najnowszej pobranej wiadomości
+			{
+				1 - response code
+				4 - 0 dla braku nowych wiadomości; id użytkownika z nowymi wiadomościami
+				4 - id użytkownika z nowymi wiadomościami* //zero lub więcej
+			}
+		GetNew //pobranie nowych wiaomości z danej konwersacji - nowsze niż najnowsza, nie więcej niż podano począwszy od najnowyszych
+			4 - id wysyłającego
+			4 - id rozmówcy
+			8 - id najnowszej pobranej wiadomości (0 w razie braku)
+			1 - maksymalna liczba wiadomości do pobrania (0 to wszystkie)
+			{
+				1 - response code
+				(8 - id wiadomości, 0 dla braku kolejnych
+				1 - kierunek wiadomości (przychodząca/wychodząca)
+				* - treść wiadomości w UTF-8, zakończona 0)*
+			}
+		GetOld //pobieranie starszych wiadomości z danej konwersacji - starsze niż najnowsza graniczna, nie starsze niż najstarsza graniczna, nie więcej niż podano począwszy od najnowszych
+			4 - id wysyłającego
+			4 - id rozmówcy
+			8 - id wiadomości najnowszej granicznej (0 jeśli nie dotyczy)
+			8 - id wiadomości najstarszej granicznej (0 jeśli nie dotyczy)
+			1 - maksymalna liczba wiadomości do pobrania (0 to wszystkie)
+			{
+				1 - response code
+				(8 - id wiadomości, 0 dla braku kolejnych
+				* - treść wiadomości w UTF-8, zakończona 0)*
+			}
+		New //wysłanie nowej wiadomości
+			4 - id wysyłającego
+			4 - id rozmówcy
+			* - treść wiadomości
+			{
+				1 - response code
+				8 - id nowej wiadomości
+			}
+		Read //informacja o odczytaniu wiadomości
+			8 - id wiadomości
+			{
+				1 - response code
+			}
