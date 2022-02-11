@@ -13,7 +13,7 @@ namespace Client {
 	public partial class App : Application {
 		protected override void OnStartup(StartupEventArgs e) {
 			base.OnStartup(e);
-			var window = new MainWindow();
+			var window = new View.MainWindow();
 			var viewmodel = new ViewModel.Main();
 			window.DataContext = viewmodel;
 			window.Show();
