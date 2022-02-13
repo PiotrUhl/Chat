@@ -12,7 +12,7 @@ namespace Chat.Server.Response {
 
 		public byte[] GetBytes() {
 			byte[] buffer = new byte[1 + CalculateSize() + 1];
-			buffer[0] = (byte)ResponseType.GetNew;
+			buffer[0] = (byte)Common.ResponseType.GetNew;
 			int offset = 1;
 			for (int i = 0; i < Messages.Count; i++) {
 				//control byte (1 - sent, 3 - recieved)

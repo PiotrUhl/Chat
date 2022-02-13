@@ -9,7 +9,7 @@ namespace Chat.Server.Response {
 		public List<int> Clients { get; set; }
 		public byte[] GetBytes() {
 			byte[] buffer = new byte[1 + sizeof(int) * (Clients.Count + 1)];
-			buffer[0] = (byte)ResponseType.CheckNew;
+			buffer[0] = (byte)Common.ResponseType.CheckNew;
 			for (int i = 0; i < Clients.Count; i++) {
 				BitConverter.TryWriteBytes(new Span<byte>(buffer, 1 + sizeof(int) * i, sizeof(int)), Clients[i]);
 			}

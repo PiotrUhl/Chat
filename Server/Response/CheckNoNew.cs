@@ -8,7 +8,7 @@ namespace Chat.Server.Response {
 	internal class CheckNoNew : IResponse {
 		public byte[] GetBytes() {
 			byte[] buffer = new byte[1];
-			buffer[0] = (byte)ResponseType.CheckNoNew;
+			buffer[0] = (byte)Common.ResponseType.CheckNoNew;
 			return buffer;
 			//todo: obsługa błędów
 		}

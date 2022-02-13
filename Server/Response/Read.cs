@@ -8,7 +8,7 @@ namespace Chat.Server.Response {
 	internal class Read : IResponse {
 		public byte[] GetBytes() {
 			byte[] buffer = new byte[1];
-			buffer[0] = (byte)ResponseType.Read;
+			buffer[0] = (byte)Common.ResponseType.Read;
 			return buffer;
 			//todo: obsługa błędów
 		}

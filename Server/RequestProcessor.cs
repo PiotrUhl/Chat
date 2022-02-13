@@ -16,21 +16,21 @@ namespace Chat.Server {
 			//log  client endpoint
 			using (var stream = client.GetStream()) {
 				var message = new Message(stream);
-				MessageType type = (MessageType)message.GetByte();
+				Common.RequestType type = (Common.RequestType)message.GetByte();
 				switch (type) {
-					case MessageType.Check:
+					case Common.RequestType.Check:
 						ProcessCheck(message);
 						break;
-					case MessageType.GetNew:
+					case Common.RequestType.GetNew:
 						ProcessGetNew(message);
 						break;
-					case MessageType.GetOld:
+					case Common.RequestType.GetOld:
 						ProcessGetOld(message);
 						break;
-					case MessageType.New:
+					case Common.RequestType.New:
 						ProcessNew(message);
 						break;
-					case MessageType.Read:
+					case Common.RequestType.Read:
 						ProcessRead(message);
 						break;
 					default:

@@ -12,7 +12,7 @@ namespace Chat.Server.Response {
 
 		public byte[] GetBytes() {
 			byte[] buffer = new byte[1 + 2 * sizeof(int) + sizeof(long)];
-			buffer[0] = (byte)ResponseType.New;
+			buffer[0] = (byte)Common.ResponseType.New;
 			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1, sizeof(int)), ClientId);
 			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1 + sizeof(int), sizeof(int)), PartnerId);
 			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1 + 2 * sizeof(int), sizeof(long)), MessageId);

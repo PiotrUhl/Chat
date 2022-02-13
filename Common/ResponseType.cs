@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chat.Server {
+namespace Chat.Common {
 	public enum ResponseType {
 		Unknown = 0,
 		CheckNoNew,
