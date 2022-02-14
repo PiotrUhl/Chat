@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "ChatService\Service.csproj", "{6057780F-DAE7-4E1A-BD36-328141FAA710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{6057780F-DAE7-4E1A-BD36-328141FAA710}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E3E2691B-FD23-4D08-B397-047529505CA1} = {E3E2691B-FD23-4D08-B397-047529505CA1}
 	EndProjectSection

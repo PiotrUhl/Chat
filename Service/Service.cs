@@ -21,6 +21,7 @@ namespace Chat.Service {
 			try {
 				server = new();
 				thread = new(() => server.Run());
+				thread.Start();
 				//todo: log
 				return true;
 			}

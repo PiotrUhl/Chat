@@ -8,10 +8,6 @@ namespace Chat.Server {
 
 		private TcpListener listener = null;
 
-		public Server() {
-			//read config
-		}
-
 		public void Run() {
 			try {
 				listener = new(Config.ServerIp ?? IPAddress.Any, Config.ServerPort);

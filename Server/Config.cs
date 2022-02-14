@@ -16,7 +16,8 @@ namespace Chat.Server {
 				ServerIp = null;
 			else
 				ServerIp = IPAddress.Parse(ip);
-			ServerPort = UInt16.Parse(ConfigurationManager.AppSettings["ServerPort"]);
+			var port = ConfigurationManager.AppSettings["ServerPort"];
+			ServerPort = UInt16.Parse(port);
 		}
 	}
 }
