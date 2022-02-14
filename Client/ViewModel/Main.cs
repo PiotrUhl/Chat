@@ -17,6 +17,10 @@ namespace Client.ViewModel {
 		}
 		#endregion
 
+		//Global
+		public int LoggedUserId { get; set; }
+		public long NewestMessageId { get; set; }
+
 		//ContactList
 		public ObservableCollection<Model.Contact> Contacts { get; set; }
 		public Model.Contact SelectedContact {
@@ -37,7 +41,6 @@ namespace Client.ViewModel {
 			}
 		}
 		private ObservableCollection<Model.Message> activeMessageBox;
-
 		public Model.Message SelectedMessage { get; set; }
 
 		//Constructor
@@ -56,7 +59,7 @@ namespace Client.ViewModel {
 			}
 			else {
 				using (var db = new Model.Context()) {
-					ActiveMessageBox = new(db.Message.Where(_ => _.Contact == SelectedContact).ToList());
+					ActiveMessageBox = new(db.Messages.Where(_ => _.Contact == SelectedContact).ToList());
 				}
 			}
 			NotifyPropertyChanged("ActiveMessageBox");

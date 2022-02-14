@@ -10,6 +10,7 @@ namespace Client.Model {
 		[Key]
 		public int Id { get; set; }
 		public string DisplayName { get; set; }
+		public bool New { get; set; } = false;
 
 		public virtual List<Message> Messages { get; set; }
 	}

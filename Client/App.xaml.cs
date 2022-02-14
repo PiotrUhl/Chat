@@ -17,6 +17,8 @@ namespace Client {
 			var viewmodel = new ViewModel.Main();
 			window.DataContext = viewmodel;
 			window.Show();
+			var worker = new Logic.Worker(viewmodel);
+			Task checkingTask = Task.Run(() => worker.RunChecking());
 		}
 	}
 }
