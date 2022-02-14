@@ -14,7 +14,7 @@ namespace Client.Logic {
 			buffer[1] = (byte)Chat.Common.RequestType.Check;
 			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1, sizeof(int)), senderId);
 			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1 + sizeof(int), sizeof(long)), lastMessageId);
-			using (var tcpClient = new TcpClient(new IPEndPoint(Config.ServerPort, Config.ServerPort))) {
+			using (var tcpClient = new TcpClient(new IPEndPoint(Config.ServerIp, Config.ServerPort))) {
 				using (var stream = tcpClient.GetStream()) {
 					stream.Write(buffer);
 					ResponseType type = (ResponseType)stream.ReadByte();

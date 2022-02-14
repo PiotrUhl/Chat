@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 namespace Chat.Server {
 	public class Server {
 
-		private Config config;
-
 		private TcpListener listener = null;
 
 		public Server() {
@@ -16,7 +14,7 @@ namespace Chat.Server {
 
 		public void Run() {
 			try {
-				listener = new(config.Ip ?? IPAddress.Any, config.Port);
+				listener = new(Config.ServerIp ?? IPAddress.Any, Config.ServerPort);
 				listener.Start();
 				while (true) {
 					var client = listener.AcceptTcpClient();
