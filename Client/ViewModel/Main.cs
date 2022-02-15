@@ -18,7 +18,7 @@ namespace Client.ViewModel {
 		#endregion
 
 		//Global
-		public int LoggedUserId { get; set; }
+		public int LoggedUserId { get; set; } = 1;
 		public long NewestMessageId { get; set; }
 
 		//ContactList
