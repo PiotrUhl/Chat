@@ -117,5 +117,40 @@ namespace Client.Backend {
 				return (null, false);
 			}
 		}
+
+		public long New(int senderId, int recipentId, string message) {
+			var raw = System.Text.Encoding.UTF8.GetBytes(message);
+			byte[] buffer = new byte[1 + 2*sizeof(int) + raw.Length];
+			buffer[0] = (byte)Chat.Common.RequestType.New;
+			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1, sizeof(int)), senderId);
+			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1 + sizeof(int), sizeof(int)), recipentId);
+			Array.Copy(raw, 0, buffer, 1 + 2*sizeof(int), raw.Length);
+			try {
+				using (var tcpClient = new TcpClient()) {
+					tcpClient.Connect(new IPEndPoint(Config.ServerIp, Config.ServerPort));
+					using (var stream = tcpClient.GetStream()) {
+						stream.Write(buffer);
+						var response = new Response(stream);
+						ResponseType type = (ResponseType)response.GetByte();
+						if (type == ResponseType.New) {
+							int responseSenderId = response.GetInt();
+							int responseRecipentId = response.GetInt();
+							long messageId = response.GetLong();
+							if (responseSenderId == senderId && responseRecipentId == recipentId)
+								return messageId;
+							else
+								return -1;
+						}
+						else {
+							return -1;
+						}
+					}
+				}
+			}
+			catch (Exception e) {
+				//todo: obsługa błędów
+				return -1;
+			}
+		}
 	}
 }

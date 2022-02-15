@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Client.ViewModel {
 	public class Main : INotifyPropertyChanged {
@@ -34,6 +35,7 @@ namespace Client.ViewModel {
 		private Model.Contact selectedContact;
 
 		//MessageBox
+		private ObservableCollection<Model.Message> activeMessageBox;
 		public ObservableCollection<Model.Message> ActiveMessageBox {
 			get => activeMessageBox;
 			set {
@@ -41,8 +43,16 @@ namespace Client.ViewModel {
 				SelectedMessage = null;
 			}
 		}
-		private ObservableCollection<Model.Message> activeMessageBox;
 		public Model.Message SelectedMessage { get; set; }
+		private string messageInput;
+		public string MessageInput {
+			get => messageInput;
+			set {
+				messageInput = value;
+				NotifyPropertyChanged("MessageInput");
+			}
+		}
+		public ICommand SendCommand { get; set; }
 
 		//Constructor
 		public Main(Backend.Network network) {
@@ -53,6 +63,25 @@ namespace Client.ViewModel {
 				Contacts = new(db.Contacts.ToList());
 				NewestMessageId = db.Messages.FirstOrDefault()?.Id ?? 0;
 			}
+			SendCommand = new RelayCommand(__ => SendMessage(), _ => MessageInput?.Length > 0);
+		}
+
+		//Send message
+		private void SendMessage() {
+			var message = new Model.Message() {
+				Text = MessageInput,
+				Recieved = false,
+				ContactId = SelectedContact.Id
+			};
+			message.Id = network.New(LoggedUserId, SelectedContact.Id, MessageInput);
+			if (message.Id > 0) {
+				using (var db = new Model.Context()) {
+					db.Messages.Add(message);
+					db.SaveChanges();
+				}
+			}
+			MessageInput = "";
+			SelectedContactChanged();
 		}
 
 		//Refill MessageBox

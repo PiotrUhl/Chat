@@ -39,7 +39,8 @@ namespace Chat.Server {
 		public string GetString() {
 			var builder = new StringBuilder();
 			int read;
-			while ((read = stream.Read(buffer, 0, 256)) > 0) {
+			while (stream.DataAvailable) {
+				read = stream.Read(buffer, 0, 256);
 				builder.Append(System.Text.Encoding.UTF8.GetString(buffer, 0, read));
 			}
 			return builder.ToString();
