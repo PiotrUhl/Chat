@@ -33,6 +33,9 @@ namespace Chat.Server {
 					case Common.RequestType.Read:
 						ProcessRead(message);
 						break;
+					case Common.RequestType.GetClient:
+						ProcessGetClient(message);
+						break;
 					default:
 						;//todo: error
 						break;
@@ -121,6 +124,17 @@ namespace Chat.Server {
 				response = new Response.Read();
 			}
 			message.SendResponse(response);
+		}
+
+		private void ProcessGetClient(Message message) {
+			IResponse response;
+			int clientId = message.GetInt();
+			using (var context = new Database.Context()) {
+				var client = context.Clients.Where(_ => _.Id == clientId).Single();
+				response = new Response.GetClient() { Name = client.DisplayName };
+			}
+			message.SendResponse(response);
+			//todo: obsługa błędów
 		}
 	}
 }

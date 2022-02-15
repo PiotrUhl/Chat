@@ -11,6 +11,7 @@ namespace Chat.Database.Model
         public int SenderId { get; set; }
         public int RecipentId { get; set; }
         public string Text { get; set; }
+        public DateTime SendingTime { get; set; }
         public bool Delivered { get; set; }
         public bool Displayed { get; set; }
     }

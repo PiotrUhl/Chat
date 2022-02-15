@@ -36,8 +36,6 @@ namespace Chat.Database
 
             modelBuilder.Entity<Client>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.DisplayName).HasMaxLength(64);
 
                 entity.Property(e => e.Email)
@@ -57,7 +55,7 @@ namespace Chat.Database
 
             modelBuilder.Entity<Message>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.SendingTime).HasPrecision(3);
 
                 entity.Property(e => e.Text)
                     .IsRequired()

@@ -1,0 +1,110 @@
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client1@email.com', 'client1', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 1');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client2@email.com', 'client2', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 2');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client3@email.com', 'client3', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 3');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client4@email.com', 'client4', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 4');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client5@email.com', 'client5', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 5');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client6@email.com', 'client6', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 6');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client7@email.com', 'client7', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 7');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client8@email.com', 'client8', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 8');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client9@email.com', 'client9', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 9');
+INSERT INTO Clients(Email, Login, Password, DisplayName) VALUES ('client10@email.com', 'client10', 0xD74FF0EE8DA3B9806B18C877DBF29BBDE50B5BD8E4DAD7A3A725000FEB82E8F1, 'Client 10');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 2, 'Message from client 1 to client 2', '2022-02-01T01:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 3, 'Message from client 1 to client 3', '2022-02-01T01:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 4, 'Message from client 1 to client 4', '2022-02-01T01:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 5, 'Message from client 1 to client 5', '2022-02-01T01:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 6, 'Message from client 1 to client 6', '2022-02-01T01:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 7, 'Message from client 1 to client 7', '2022-02-01T01:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 8, 'Message from client 1 to client 8', '2022-02-01T01:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 9, 'Message from client 1 to client 9', '2022-02-01T01:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (1, 10, 'Message from client 1 to client 10', '2022-02-01T01:02:10.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 1, 'Message from client 2 to client 1', '2022-02-01T02:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 3, 'Message from client 2 to client 3', '2022-02-01T02:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 4, 'Message from client 2 to client 4', '2022-02-01T02:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 5, 'Message from client 2 to client 5', '2022-02-01T02:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 6, 'Message from client 2 to client 6', '2022-02-01T02:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 7, 'Message from client 2 to client 7', '2022-02-01T02:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 8, 'Message from client 2 to client 8', '2022-02-01T02:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 9, 'Message from client 2 to client 9', '2022-02-01T02:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (2, 10, 'Message from client 2 to client 10', '2022-02-01T02:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 1, 'Message from client 3 to client 1', '2022-02-01T03:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 2, 'Message from client 3 to client 2', '2022-02-01T03:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 4, 'Message from client 3 to client 4', '2022-02-01T03:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 5, 'Message from client 3 to client 5', '2022-02-01T03:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 6, 'Message from client 3 to client 6', '2022-02-01T03:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 7, 'Message from client 3 to client 7', '2022-02-01T03:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 8, 'Message from client 3 to client 8', '2022-02-01T03:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 9, 'Message from client 3 to client 9', '2022-02-01T03:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (3, 10, 'Message from client 3 to client 10', '2022-02-01T03:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 1, 'Message from client 4 to client 1', '2022-02-01T04:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 2, 'Message from client 4 to client 2', '2022-02-01T04:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 3, 'Message from client 4 to client 3', '2022-02-01T04:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 5, 'Message from client 4 to client 5', '2022-02-01T04:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 6, 'Message from client 4 to client 6', '2022-02-01T04:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 7, 'Message from client 4 to client 7', '2022-02-01T04:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 8, 'Message from client 4 to client 8', '2022-02-01T04:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 9, 'Message from client 4 to client 9', '2022-02-01T04:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (4, 10, 'Message from client 4 to client 10', '2022-02-01T04:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 1, 'Message from client 5 to client 1', '2022-02-01T05:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 2, 'Message from client 5 to client 2', '2022-02-01T05:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 3, 'Message from client 5 to client 3', '2022-02-01T05:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 4, 'Message from client 5 to client 4', '2022-02-01T05:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 6, 'Message from client 5 to client 6', '2022-02-01T05:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 7, 'Message from client 5 to client 7', '2022-02-01T05:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 8, 'Message from client 5 to client 8', '2022-02-01T05:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 9, 'Message from client 5 to client 9', '2022-02-01T05:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (5, 10, 'Message from client 5 to client 10', '2022-02-01T05:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 1, 'Message from client 6 to client 1', '2022-02-01T06:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 2, 'Message from client 6 to client 2', '2022-02-01T06:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 3, 'Message from client 6 to client 3', '2022-02-01T06:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 4, 'Message from client 6 to client 4', '2022-02-01T06:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 5, 'Message from client 6 to client 5', '2022-02-01T06:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 7, 'Message from client 6 to client 7', '2022-02-01T06:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 8, 'Message from client 6 to client 8', '2022-02-01T06:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 9, 'Message from client 6 to client 9', '2022-02-01T06:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (6, 10, 'Message from client 6 to client 10', '2022-02-01T06:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 1, 'Message from client 7 to client 1', '2022-02-01T07:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 2, 'Message from client 7 to client 2', '2022-02-01T07:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 3, 'Message from client 7 to client 3', '2022-02-01T07:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 4, 'Message from client 7 to client 4', '2022-02-01T07:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 5, 'Message from client 7 to client 5', '2022-02-01T07:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 6, 'Message from client 7 to client 6', '2022-02-01T07:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 8, 'Message from client 7 to client 8', '2022-02-01T07:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 9, 'Message from client 7 to client 9', '2022-02-01T07:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (7, 10, 'Message from client 7 to client 10', '2022-02-01T07:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 1, 'Message from client 8 to client 1', '2022-02-01T08:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 2, 'Message from client 8 to client 2', '2022-02-01T08:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 3, 'Message from client 8 to client 3', '2022-02-01T08:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 4, 'Message from client 8 to client 4', '2022-02-01T08:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 5, 'Message from client 8 to client 5', '2022-02-01T08:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 6, 'Message from client 8 to client 6', '2022-02-01T08:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 7, 'Message from client 8 to client 7', '2022-02-01T08:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 9, 'Message from client 8 to client 9', '2022-02-01T08:09:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (8, 10, 'Message from client 8 to client 10', '2022-02-01T08:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 1, 'Message from client 9 to client 1', '2022-02-01T09:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 2, 'Message from client 9 to client 2', '2022-02-01T09:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 3, 'Message from client 9 to client 3', '2022-02-01T09:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 4, 'Message from client 9 to client 4', '2022-02-01T09:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 5, 'Message from client 9 to client 5', '2022-02-01T09:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 6, 'Message from client 9 to client 6', '2022-02-01T09:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 7, 'Message from client 9 to client 7', '2022-02-01T09:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 8, 'Message from client 9 to client 8', '2022-02-01T09:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (9, 10, 'Message from client 9 to client 10', '2022-02-01T09:10:00.000');
+
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 1, 'Message from client 10 to client 1', '2022-02-01T10:01:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 2, 'Message from client 10 to client 2', '2022-02-01T10:02:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 3, 'Message from client 10 to client 3', '2022-02-01T10:03:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 4, 'Message from client 10 to client 4', '2022-02-01T10:04:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 5, 'Message from client 10 to client 5', '2022-02-01T10:05:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 6, 'Message from client 10 to client 6', '2022-02-01T10:06:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 7, 'Message from client 10 to client 7', '2022-02-01T10:07:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 8, 'Message from client 10 to client 8', '2022-02-01T10:08:00.000');
+INSERT INTO Messages(SenderId, RecipentId, Text, SendingTime) VALUES (10, 9, 'Message from client 10 to client 9', '2022-02-01T10:09:00.000');
