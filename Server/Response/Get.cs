@@ -16,7 +16,7 @@ namespace Chat.Server.Response {
 			int offset = 1;
 			for (int i = 0; i < Messages.Count; i++) {
 				//control byte (1 - sent, 3 - recieved)
-				buffer[offset++] = (byte)(Messages[i].SenderId == Client ? 1 : 2);
+				buffer[offset++] = (byte)(Messages[i].SenderId == Client ? 1 : 3);
 				//write id
 				BitConverter.TryWriteBytes(new Span<byte>(buffer, offset, sizeof(long)), Messages[i].Id);
 				offset += sizeof(long);

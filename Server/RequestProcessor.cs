@@ -74,6 +74,8 @@ namespace Chat.Server {
 				}
 				response = new Response.Get() { Client = clientId, Messages = query.ToList(), More = more };
 			}
+			message.SendResponse(response);
+			//todo: obsługa błędów
 		}
 
 		private void ProcessGetOld (Message message) {
@@ -93,6 +95,8 @@ namespace Chat.Server {
 				}
 				response = new Response.Get() { Client = clientId, Messages = query.ToList(), More = more };
 			}
+			message.SendResponse(response);
+			//todo: obsługa błędów
 		}
 
 		private void ProcessNew(Message message) {

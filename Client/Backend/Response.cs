@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Client.Backend {
-	public class Message {
+	public class Response {
 		private NetworkStream stream;
 		private byte[] buffer;
 
-		public Message(NetworkStream stream) {
+		public Response(NetworkStream stream) {
 			this.stream = stream;
 			this.buffer = new byte[256];
 		}
@@ -41,6 +41,20 @@ namespace Client.Backend {
 			while ((read = stream.Read(buffer, 0, 256)) > 0) {
 				builder.Append(System.Text.Encoding.UTF8.GetString(buffer, 0, read));
 			}
+			return builder.ToString();
+		}
+		public string GetNullTerminatedString() {
+			var builder = new StringBuilder();
+			int i = 0;
+			byte read;
+			while ((read = (byte)stream.ReadByte()) != 0) {
+				buffer[i++] = read;
+				if (i >= buffer.Length) {
+					builder.Append(System.Text.Encoding.UTF8.GetString(buffer));
+					i = 0;
+				}
+			}
+			builder.Append(System.Text.Encoding.UTF8.GetString(buffer, 0, i));
 			return builder.ToString();
 		}
 	}

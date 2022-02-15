@@ -61,7 +61,17 @@ namespace Client.ViewModel {
 				ActiveMessageBox = null;
 			}
 			else {
+				(List<Model.Message>, bool) newMessages = new();
+				if (SelectedContact.New == true) {
+					newMessages = network.GetNew(LoggedUserId, SelectedContact.Id, NewestMessageId);
+				}
 				using (var db = new Model.Context()) {
+					if (newMessages.Item1 != null) {
+						SelectedContact.New = false;
+						db.Contacts.Where(_ => _.Id == SelectedContact.Id).Single().New = false;
+						db.Messages.AddRange(newMessages.Item1);
+						db.SaveChanges();
+					}
 					ActiveMessageBox = new(db.Messages.Where(_ => _.Contact == SelectedContact).ToList());
 				}
 			}
