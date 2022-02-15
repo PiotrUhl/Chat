@@ -18,6 +18,7 @@ namespace Client.ViewModel {
 		#endregion
 
 		//Global
+		private Backend.Network network;
 		public int LoggedUserId { get; set; } = 1;
 		public long NewestMessageId { get; set; }
 
@@ -44,11 +45,13 @@ namespace Client.ViewModel {
 		public Model.Message SelectedMessage { get; set; }
 
 		//Constructor
-		public Main() {
+		public Main(Backend.Network network) {
+			this.network = network;
 			SelectedContact = null;
 			SelectedMessage = null;
 			using (var db = new Model.Context()) {
 				Contacts = new(db.Contacts.ToList());
+				NewestMessageId = db.Messages.FirstOrDefault()?.Id ?? 0;
 			}
 		}
 

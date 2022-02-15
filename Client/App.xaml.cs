@@ -13,11 +13,12 @@ namespace Client {
 	public partial class App : Application {
 		protected override void OnStartup(StartupEventArgs e) {
 			base.OnStartup(e);
+			var network = new Backend.Network();
 			var window = new View.MainWindow();
-			var viewmodel = new ViewModel.Main();
+			var viewmodel = new ViewModel.Main(network);
 			window.DataContext = viewmodel;
 			window.Show();
-			var worker = new Logic.Worker(viewmodel);
+			var worker = new Backend.Worker(viewmodel, network);
 			Task checkingTask = Task.Run(() => worker.RunChecking());
 		}
 	}

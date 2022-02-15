@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Chat.Common;
 
-namespace Client.Logic {
+namespace Client.Backend {
 	public class Network {
 		public List<int> Check(int senderId, long lastMessageId) {
 			byte[] buffer = new byte[1 + sizeof(int) + sizeof(long)];
@@ -19,16 +19,15 @@ namespace Client.Logic {
 					tcpClient.Connect(new IPEndPoint(Config.ServerIp, Config.ServerPort));
 					using (var stream = tcpClient.GetStream()) {
 						stream.Write(buffer);
-						ResponseType type = (ResponseType)stream.ReadByte();
+						var response = new Message(stream);
+						ResponseType type = (ResponseType)response.GetByte();
 						if (type == ResponseType.CheckNoNew) {
 							return new();
 						}
 						else if (type == ResponseType.CheckNew) {
-							var readBuffer = new byte[sizeof(int)];
 							var list = new List<int>();
 							while (stream.DataAvailable) {
-								stream.Read(readBuffer);
-								list.Add(BitConverter.ToInt32(readBuffer, 0));
+								list.Add(response.GetInt());
 							}
 							return list;
 						}
@@ -43,6 +42,7 @@ namespace Client.Logic {
 				return null;
 			}
 		}
+
 		public string GetClient(int clientId) {
 			byte[] buffer = new byte[1 + sizeof(int)];
 			buffer[0] = (byte)Chat.Common.RequestType.GetClient;
@@ -52,15 +52,10 @@ namespace Client.Logic {
 					tcpClient.Connect(new IPEndPoint(Config.ServerIp, Config.ServerPort));
 					using (var stream = tcpClient.GetStream()) {
 						stream.Write(buffer);
-						ResponseType type = (ResponseType)stream.ReadByte();
+						var response = new Message(stream);
+						ResponseType type = (ResponseType)response.GetByte();
 						if (type == ResponseType.GetClient) {
-							byte[] readBuffer = new byte[256];
-							var builder = new StringBuilder();
-							int read;
-							while ((read = stream.Read(readBuffer, 0, 256)) > 0) {
-								builder.Append(System.Text.Encoding.UTF8.GetString(readBuffer, 0, read));
-							}
-							return builder.ToString();
+							return response.GetString();
 						}
 						else {
 							return null;
