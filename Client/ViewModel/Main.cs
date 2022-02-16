@@ -102,9 +102,15 @@ namespace Client.ViewModel {
 						db.SaveChanges();
 					}
 					ActiveMessageBox = new(db.Messages.Where(_ => _.Contact == SelectedContact).ToList());
+					NotifyMessagesRead(ActiveMessageBox.Last().Id);
 				}
 			}
 			NotifyPropertyChanged("ActiveMessageBox");
+		}
+
+		//Notify messages read
+		private void NotifyMessagesRead(long message) {
+			network.Read(message);
 		}
 	}
 }

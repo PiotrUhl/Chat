@@ -72,9 +72,13 @@ namespace Chat.Server {
 					more = true;
 					query.Take(limit);
 				}
+				foreach (var msg in query) {
+					msg.Delivered = true;
+				}
 				response = new Response.Get() { Client = clientId, Messages = query.ToList(), More = more };
+				message.SendResponse(response);
+				context.SaveChanges();
 			}
-			message.SendResponse(response);
 			//todo: obsługa błędów
 		}
 
@@ -123,7 +127,10 @@ namespace Chat.Server {
 			long messageId = message.GetLong(); //message
 			using (var context = new Database.Context()) {
 				var msg = context.Messages.Where(_ => _.Id == messageId).Single();
-				msg.Displayed = true;
+				var query = context.Messages.Where(_ => _.Id <= messageId && ((_.SenderId == msg.SenderId && _.RecipentId == msg.RecipentId) || (_.SenderId == msg.RecipentId && _.RecipentId == msg.SenderId)) && _.Displayed == false);
+				foreach (var m in query) {
+					m.Displayed = true;
+				}
 				context.SaveChanges();
 				response = new Response.Read();
 			}

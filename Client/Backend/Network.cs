@@ -152,5 +152,31 @@ namespace Client.Backend {
 				return -1;
 			}
 		}
+
+		public bool Read(long messageId) {
+			byte[] buffer = new byte[1 + sizeof(long)];
+			buffer[0] = (byte)Chat.Common.RequestType.Read;
+			BitConverter.TryWriteBytes(new Span<byte>(buffer, 1, sizeof(long)), messageId);
+			try {
+				using (var tcpClient = new TcpClient()) {
+					tcpClient.Connect(new IPEndPoint(Config.ServerIp, Config.ServerPort));
+					using (var stream = tcpClient.GetStream()) {
+						stream.Write(buffer);
+						var response = new Response(stream);
+						ResponseType type = (ResponseType)response.GetByte();
+						if (type == ResponseType.Read) {
+							return true;
+						}
+						else {
+							return false;
+						}
+					}
+				}
+			}
+			catch (Exception e) {
+				//todo: obsługa błędów
+				return false;
+			}
+		}
 	}
 }
