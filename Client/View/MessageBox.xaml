@@ -23,7 +23,14 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="50" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding MessageInput, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="pl-PL"></TextBox>
+            <TextBox
+                Grid.Row="0" Grid.Column="0"
+                Text="{Binding MessageInput, UpdateSourceTrigger=PropertyChanged}"
+                AcceptsReturn="True"
+                TextWrapping="Wrap"
+                SpellCheck.IsEnabled="True" Language="pl-PL"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            />
             <Button Grid.Row="0" Grid.Column="1" Command="{Binding SendCommand}">></Button>
         </Grid>
     </Grid>

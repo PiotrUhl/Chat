@@ -6,5 +6,23 @@
              xmlns:local="clr-namespace:Client.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="200">
-    <ListBox Name="contactList" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" DisplayMemberPath="DisplayName" />
+    <ListBox Name="contactList" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding DisplayName}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding New}" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
 </UserControl>
