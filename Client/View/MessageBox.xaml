@@ -14,7 +14,32 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Row="0" Grid.Column="0" Name="messageBox" ItemsSource="{Binding ActiveMessageBox}" SelectedItem="{Binding SelectedMessage}" DisplayMemberPath="Text" />
+        <ListBox Grid.Row="0" Grid.Column="0" Name="messageBox" ItemsSource="{Binding ActiveMessageBox}" SelectedItem="{Binding SelectedMessage}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="1" BorderBrush="Black" Width="auto">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Recieved}" Value="True">
+                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Recieved}" Value="False">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <TextBlock Text="{Binding Text}" Margin="5"></TextBlock>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
