@@ -10,7 +10,7 @@
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding DisplayName}">
+                    <TextBlock Height="25" Padding="3" FontSize="16"  Text="{Binding DisplayName}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Style.Triggers>
