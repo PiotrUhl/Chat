@@ -9,6 +9,35 @@ using Chat.Common;
 
 namespace Client.Backend {
 	public class Network {
+		public int LogIn(string login, byte[] passhash) {
+			var raw = System.Text.Encoding.UTF8.GetBytes(login);
+			byte[] buffer = new byte[1 + raw.Length + passhash.Length];
+			buffer[0] = (byte)Chat.Common.RequestType.LogIn;
+			Array.Copy(passhash, 0, buffer, 1, passhash.Length);
+			Array.Copy(raw, 0, buffer, 1 + passhash.Length, raw.Length);
+			try {
+				using (var tcpClient = new TcpClient()) {
+					tcpClient.Connect(new IPEndPoint(Config.ServerIp, Config.ServerPort));
+					using (var stream = tcpClient.GetStream()) {
+						stream.Write(buffer);
+						var response = new Response(stream);
+						ResponseType type = (ResponseType)response.GetByte();
+						if (type == ResponseType.LogIn) {
+							int userId = response.GetInt();
+							return userId;
+						}
+						else {
+							return -1;
+						}
+					}
+				}
+			}
+			catch (Exception e) {
+				//todo: obsługa błędów
+				return -1;
+			}
+		}
+
 		public List<int> Check(int senderId, long lastMessageId) {
 			byte[] buffer = new byte[1 + sizeof(int) + sizeof(long)];
 			buffer[0] = (byte)Chat.Common.RequestType.Check;

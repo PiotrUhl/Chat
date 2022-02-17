@@ -22,6 +22,13 @@ namespace Chat.Server {
 			return buffer[0];
 		}
 
+		public byte[] GetBytes(int size) {
+			byte[] buff = new byte[size];
+			if (stream.Read(buff, 0, size) < 1)
+				; //todo: error
+			return buff;
+		}
+
 		public int GetInt() {
 			if (stream.Read(buffer, 0, 4) < 4)
 				; //todo: error

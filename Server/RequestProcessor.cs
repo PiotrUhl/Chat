@@ -36,6 +36,9 @@ namespace Chat.Server {
 					case Common.RequestType.GetClient:
 						ProcessGetClient(message);
 						break;
+					case Common.RequestType.LogIn:
+						ProcessLogIn(message);
+						break;
 					default:
 						;//todo: error
 						break;
@@ -52,7 +55,7 @@ namespace Chat.Server {
 				if (query.Any() == false)
 					response = new Response.CheckNoNew();
 				else {
-					response = new Response.CheckNew() { Clients = query.Select(_ => _.RecipentId).ToList() };
+					response = new Response.CheckNew() { Clients = query.Select(_ => _.RecipentId).Distinct().ToList() };
 				}
 			}
 			message.SendResponse(response);
@@ -143,6 +146,26 @@ namespace Chat.Server {
 			using (var context = new Database.Context()) {
 				var client = context.Clients.Where(_ => _.Id == clientId).Single();
 				response = new Response.GetClient() { Name = client.DisplayName };
+			}
+			message.SendResponse(response);
+			//todo: obsługa błędów
+		}
+
+		private void ProcessLogIn(Message message) {
+			IResponse response;
+			byte[] passhash = message.GetBytes(32);
+			string login = message.GetString();
+			using (var context = new Database.Context()) {
+				var query = context.Clients.Where(_ => _.Login == login);
+				if (query.Any()) {
+					var client = query.Single();
+					if (client.Password.SequenceEqual(passhash))
+						response = new Response.LogIn() { Id = client.Id };
+					else
+						response = new Response.LogIn() { Id = -1 };
+				}
+				else
+					response = new Response.LogIn() { Id = -1 };
 			}
 			message.SendResponse(response);
 			//todo: obsługa błędów

@@ -12,6 +12,7 @@ namespace Chat.Common {
 		GetOld,
 		New,
 		Read,
-		GetClient
+		GetClient,
+		LogIn
 	}
 }

@@ -20,7 +20,7 @@ namespace Client.ViewModel {
 
 		//Global
 		private Backend.Network network;
-		public int LoggedUserId { get; set; } = 1;
+		public int LoggedUserId { get; set; }
 		public long NewestMessageId { get; set; }
 
 		//ContactList
@@ -29,7 +29,7 @@ namespace Client.ViewModel {
 			get => selectedContact;
 			set {
 				selectedContact = value;
-				SelectedContactChanged();
+				RefreshMessageBox();
 			}
 		}
 		private Model.Contact selectedContact;
@@ -59,11 +59,14 @@ namespace Client.ViewModel {
 			this.network = network;
 			SelectedContact = null;
 			SelectedMessage = null;
+			SendCommand = new RelayCommand(__ => SendMessage(), _ => MessageInput?.Length > 0);
+		}
+		public void Init() {
 			using (var db = new Model.Context()) {
 				Contacts = new(db.Contacts.ToList());
-				NewestMessageId = db.Messages.FirstOrDefault()?.Id ?? 0;
+				NewestMessageId = db.Messages.OrderBy(_ => _.Id).LastOrDefault()?.Id ?? 0;
+				NotifyPropertyChanged("Contacts");
 			}
-			SendCommand = new RelayCommand(__ => SendMessage(), _ => MessageInput?.Length > 0);
 		}
 
 		//Send message
@@ -80,27 +83,21 @@ namespace Client.ViewModel {
 					db.SaveChanges();
 				}
 			}
+			if (NewestMessageId < message.Id)
+				NewestMessageId = message.Id;
 			MessageInput = "";
-			SelectedContactChanged();
+			RefreshMessageBox();
 		}
 
 		//Refill MessageBox
-		private void SelectedContactChanged() {
+		public void RefreshMessageBox() {
 			if (SelectedContact == null) {
 				ActiveMessageBox = null;
 			}
 			else {
-				(List<Model.Message>, bool) newMessages = new();
-				if (SelectedContact.New == true) {
-					newMessages = network.GetNew(LoggedUserId, SelectedContact.Id, NewestMessageId);
-				}
+				SelectedContact.New = false;
 				using (var db = new Model.Context()) {
-					if (newMessages.Item1 != null) {
-						SelectedContact.New = false;
-						db.Contacts.Where(_ => _.Id == SelectedContact.Id).Single().New = false;
-						db.Messages.AddRange(newMessages.Item1);
-						db.SaveChanges();
-					}
+					db.Contacts.Where(_ => _.Id == SelectedContact.Id).Single().New = false;
 					ActiveMessageBox = new(db.Messages.Where(_ => _.Contact == SelectedContact).ToList());
 					NotifyMessagesRead(ActiveMessageBox.Last().Id);
 				}
