@@ -6,12 +6,17 @@
         xmlns:local="clr-namespace:Client.View"
         mc:Ignorable="d"
         Title="Login" Height="300" Width="250">
+        <Window.InputBindings>
+            <KeyBinding Command="{Binding LogInCommand}" Key="Enter"/>
+        </Window.InputBindings>
     <StackPanel Width="150" VerticalAlignment="Center">
         <TextBlock>Login:</TextBlock>
         <TextBox Name="LoginBox" Text="{Binding LoginText, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBlock>Hasło:</TextBlock>
-        <PasswordBox Name="PasswordBox"/>
-        <Button Width="60" Height="20" IsDefault="True" Command="{Binding LogInCommand}">Zaloguj</Button>
+        <PasswordBox Name="PasswordBox">
+            
+        </PasswordBox>
+        <Button Width="60" Height="20" Command="{Binding LogInCommand}">Zaloguj</Button>
         <TextBlock Name="ErrorText" HorizontalAlignment="Center" Foreground="Red" Visibility="{Binding ErrorVisibility}">Logowanie nieudane!</TextBlock>
     </StackPanel>
 </Window>

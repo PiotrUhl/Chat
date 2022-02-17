@@ -46,6 +46,8 @@ namespace Client.ViewModel {
 		}
 
 		private void TryLogIn() {
+			if (LoginText.Length == 0)
+				return;
 			byte[] passhash = null;
 			using (SHA256 mySHA256 = SHA256.Create()) {
 				passhash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(window.PasswordBox.Password));
