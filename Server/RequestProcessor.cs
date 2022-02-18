@@ -51,11 +51,13 @@ namespace Chat.Server {
 			int clientId = message.GetInt(); //caller
 			long messageId = message.GetLong(); //newest message client has
 			using (var context = new Database.Context()) {
-				var query = context.Messages.Where(_ => _.SenderId == clientId && _.Id > messageId);
+				var query = context.Messages.Where(_ => (_.SenderId == clientId || _.RecipentId == clientId) && _.Id > messageId);
 				if (query.Any() == false)
 					response = new Response.CheckNoNew();
 				else {
-					response = new Response.CheckNew() { Clients = query.Select(_ => _.RecipentId).Distinct().ToList() };
+					var senders = query.Where(_ => _.SenderId != clientId).Select(_ => _.SenderId);
+					var recipents = query.Where(_ => _.RecipentId != clientId).Select(_ => _.RecipentId);
+					response = new Response.CheckNew() { Clients = senders.Concat(recipents).Distinct().ToList() };
 				}
 			}
 			message.SendResponse(response);

@@ -10,7 +10,10 @@ namespace Client.Model {
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Message> Messages { get; set; }
 
-        public Context() {
+        private string dbname;
+
+        public Context(int userId) {
+            dbname = $"localChatDb{userId}.db";
             Database.EnsureCreated();
         }
 
@@ -21,7 +24,7 @@ namespace Client.Model {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) {
-            options.UseSqlite($"Data Source={System.IO.Path.Join(Environment.CurrentDirectory, "localChatDb.db")}");
+            options.UseSqlite($"Data Source={System.IO.Path.Join(Environment.CurrentDirectory, dbname)}");
         }
     }
 }

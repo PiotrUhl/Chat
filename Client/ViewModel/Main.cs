@@ -62,7 +62,7 @@ namespace Client.ViewModel {
 			SendCommand = new RelayCommand(__ => SendMessage(), _ => MessageInput?.Length > 0);
 		}
 		public void Init() {
-			using (var db = new Model.Context()) {
+			using (var db = new Model.Context(LoggedUserId)) {
 				Contacts = new(db.Contacts.ToList());
 				NewestMessageId = db.Messages.OrderBy(_ => _.Id).LastOrDefault()?.Id ?? 0;
 				NotifyPropertyChanged("Contacts");
@@ -78,7 +78,7 @@ namespace Client.ViewModel {
 			};
 			message.Id = network.New(LoggedUserId, SelectedContact.Id, MessageInput);
 			if (message.Id > 0) {
-				using (var db = new Model.Context()) {
+				using (var db = new Model.Context(LoggedUserId)) {
 					db.Messages.Add(message);
 					db.SaveChanges();
 				}
@@ -96,10 +96,10 @@ namespace Client.ViewModel {
 			}
 			else {
 				SelectedContact.New = false;
-				using (var db = new Model.Context()) {
+				using (var db = new Model.Context(LoggedUserId)) {
 					db.Contacts.Where(_ => _.Id == SelectedContact.Id).Single().New = false;
 					ActiveMessageBox = new(db.Messages.Where(_ => _.Contact == SelectedContact).ToList());
-					NotifyMessagesRead(ActiveMessageBox.Last().Id);
+					NotifyMessagesRead(ActiveMessageBox.Where(_ => _.Recieved == true).Last().Id);
 				}
 			}
 			NotifyPropertyChanged("ActiveMessageBox");
