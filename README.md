@@ -44,7 +44,7 @@ After launching client application, enter your credentials and confirm with butt
 After successful login, you will see main application window. In left section there will be all contacts you messaged with. Contacts with new messages will be bolded. On right section, there will be box with messages of selected contact. If no contact is selected, box will be empty. To select a contact just left click it on contact list. Messeges on left are recived messages, on right are sent. To send message type it in box at bottom and confirm with button at botton-right corner.
 ## Communication protocol
 Application is using its own communication protocol based on raw TCP protokol. Messages are divided into two groups: request from clients to server and answers from server to client. Every message is stared with control byte, determining its type.
-Syntax:
+#### Syntax:
 - Message name (size_of_segment name of segment) *(size_of_segment name of segment sent one or more times)*\* - description of message
   - Answer name (size_of_segment name of segment) (size_of_segment name of segment) - description of answer
 - Check (1B type)(4B SenderId) (8B MessageId) - checks if there are any messages newer than *MessageId* for client *SenderId*
