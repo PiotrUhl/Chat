@@ -2,16 +2,25 @@
 Projekt na IX semestrze studiów z przedmiotów Platforma .NET, Technologie Mobilne oraz Organizacja i Rozwój Projektów Open-Source.
 ## Table of Contents
 - [General info](#general-info)
+- [Technologies](#technologies)
 - [Installation](#installation)
   - [Server installation](#server-installation)
   - [Client installation](#client-installation)
 - [Developer setup](#developer-setup)
 - [User guide](#user-guide)
 - [Communication protocol](#communication-protocol)
+- [Third-Party Licenses](#third-party-licenses) 
 ## General info
 This is simple slient-server chat application written as project for *.NET Platform*, *Mobile technologies* and *Organization and development of open-source projects* in second semester of graduate studies.
 Application is divided into server part, working as Windows Service, and client desktop application.
 Application allows for simple text communication between logged users.
+## Technologies
+- .NET 5.0
+- Microsoft SQL Server 2014
+- WPF
+- EntityFramework Core 5.0.14
+- SQLite 3.37.2
+- Topshelf 4.3.0
 ## Installation
 
 ### Server installation
@@ -60,3 +69,5 @@ Application is using its own communication protocol based on raw TCP protokol. M
   - GetClient (1B type) (nB ClientName) - requested *ClientName*
 - LogIn (1B type) (32B PassHash) (nB Login) - tries to login as user with *Login* and *PassHash*
   - (LogIn 1B type) (4B ClientId) - id of logged client if succes, -1 if not
+ ## Third-Party Licenses
+ - [Topshelf](http://topshelf-project.com/) - [Apache 2.0](https://github.com/Topshelf/Topshelf/blob/develop/LICENSE)
