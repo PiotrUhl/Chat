@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileClient.View.ServerSelectPage">
+
+    <StackLayout VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="Start">
+            <Frame BackgroundColor="#2196F3" Padding="0,0,0,40" CornerRadius="0">
+                <Label Text="Chat" HorizontalTextAlignment="Center" TextColor="White" FontSize="46" Margin="0, 0, 0, 0"/>
+            </Frame>
+            <Label x:Name="ErrorLabel" Text="Błąd połączenia z serwerem" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,25,0,25"/>
+            <StackLayout x:Name="ServerList" Padding="30,0,30,0">
+                <Label Text="Wybierz serwer:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                <ScrollView>
+                    <StackLayout>
+                        <RadioButton Content="Server 1" Style="{StaticResource ServerListRadioButtonStyle}" />
+                        <RadioButton Content="Server 2" Style="{StaticResource ServerListRadioButtonStyle}" />
+                        <RadioButton Content="Server 3" Style="{StaticResource ServerListRadioButtonStyle}" />
+                        <RadioButton Content="Server 4" Style="{StaticResource ServerListRadioButtonStyle}" />
+                        <Button x:Name="AddServer" Text="Dodaj nowy serwer" Style="{StaticResource ServerListAddServerStyle}" Clicked="AddServerButton_Clicked" />
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand">
+            <!-- middle controls -->
+        </StackLayout>
+        <StackLayout  VerticalOptions="End">
+            <Button x:Name="ConnectButton" Text="Połącz" Style="{StaticResource ConfirmButtonStyle}" Clicked="ConnectButton_Clicked" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileClient.View.RegisterPage"
+             Title="Rejestracja">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <StackLayout VerticalOptions="Start">
+                <Label x:Name="ErrorLabel" Text="Błąd logowania" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,25,0,0"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label Text="Email:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                <Entry x:Name="EmailEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Label Text="Nazwa wyświetlana:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                <Entry x:Name="DisplayNameEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Label Text="Login:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                <Entry x:Name="LoginEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Label Text="Hasło:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                <Entry x:Name="PasswordEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Label Text="Powtórz hasło:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                <Entry x:Name="RepeatPasswordEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Button x:Name="RegisterButton" Text="Zarejestruj" Style="{StaticResource ConfirmButtonStyle}" Clicked="RegisterButton_Clicked" />
+            </StackLayout>
+            <StackLayout  VerticalOptions="End">
+                <Label Text="Masz już konto?" Style="{StaticResource FormLabelStyle}" HorizontalOptions="Center" />
+                <Button x:Name="LoginButton" Text="Logowanie" Style="{StaticResource ConfirmButtonStyle}" Clicked="LoginButton_Clicked" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileClient.View.SettingsPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                <Label Text="Ustawienia" Style="{StaticResource TitleViewLabelStyle}" />
+            </StackLayout>
+            <StackLayout HorizontalOptions="End">
+                <Button Text="&#xe9ba;" FontFamily="Material" Style="{StaticResource IconButtonStyle}" Clicked="LogoutButton_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand">
+                <StackLayout VerticalOptions="CenterAndExpand" Spacing="4">
+                    <Label Text="Powiadomienia" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                    <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" />
+                    <RadioButton Content="Tylko w aplikacji" Style="{StaticResource SettingsRadioStyle}" />
+                    <RadioButton Content="Wyłączone" Style="{StaticResource SettingsRadioStyle}" />
+                    <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" />
+                </StackLayout>
+                <StackLayout VerticalOptions="CenterAndExpand" Spacing="4">
+                    <Label Text="Edycja konta użytkownika" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+                    <Button Text="Zmień nazwę wyświetlaną" Style="{StaticResource SettingsButtonStyle}" />
+                    <Button Text="Zmień adres email" Style="{StaticResource SettingsButtonStyle}" />
+                    <Button Text="Zmień login" Style="{StaticResource SettingsButtonStyle}" />
+                    <Button Text="Zmień hasło" Style="{StaticResource SettingsButtonStyle}" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileClient.View.ContactSettingsPage"
+             Title="Nazwa kontaktu">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Powiadomienia" Style="{StaticResource FormLabelStyle}" Padding="30,30,0,0"/>
+            <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Tylko w aplikacji" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Wyłączone" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

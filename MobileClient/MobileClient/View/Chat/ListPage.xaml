@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileClient.View.ListPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                <Label Text="Logowanie" Style="{StaticResource TitleViewLabelStyle}" />
+            </StackLayout>
+            <StackLayout HorizontalOptions="End">
+                <Button Text="&#xe8b8;" FontFamily="Material" Style="{StaticResource IconButtonStyle}" Clicked="SettingsButton_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="-4">
+                <Button Text="Kontakt1" Style="{StaticResource ContactButtonStyle}" Clicked="ContactButton_Clicked" />
+                <Button Text="Kontakt2" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt3" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt4" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt5" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt6" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt7" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt8" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt9" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt10" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt11" Style="{StaticResource ContactButtonStyle}" />
+                <Button Text="Kontakt12" Style="{StaticResource ContactButtonStyle}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

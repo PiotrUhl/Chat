@@ -2,6 +2,8 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+[assembly: ExportFont("MaterialIcons-Regular.ttf", Alias = "Material")]
+
 namespace MobileClient {
 	public partial class App : Application {
 		public App() {

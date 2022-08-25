@@ -1,8 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:my="clr-namespace:MobileClient.Controls"
              x:Class="MobileClient.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <Style x:Key="ErrorLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="FormLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="ConfirmButtonStyle" TargetType="Button">
+                <Setter Property="HeightRequest" Value="64" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="ServerListRadioButtonStyle" TargetType="RadioButton">
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="Background" Value="WhiteSmoke" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="ServerListAddServerStyle" TargetType="RadioButton">
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextTransform" Value="None" />
+            </Style>
+            <Style x:Key="FormInputStyle" TargetType="Entry">
+                <Setter Property="HeightRequest" Value="32" />
+            </Style>
+            <Style x:Key="ContactButtonStyle" TargetType="Button">
+                <Setter Property="HeightRequest" Value="64" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="TitleViewLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="IconButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Background" Value="Color.Transparent" />
+                <Setter Property="WidthRequest" Value="54" />
+                <Setter Property="HeightRequest" Value="54" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style x:Key="SettingsRadioStyle" TargetType="RadioButton">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="Margin" Value="24,0,0,0" />
+            </Style>
+            <Style x:Key="SettingsButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HeightRequest" Value="56" />
+                <Setter Property="Margin" Value="24,0,24,0" />
+                <Setter Property="TextTransform" Value="None" />
+            </Style>
+            <Style Class="MessageControlStyle" TargetType="my:Message">
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+            <Style Class="MessageLabelStyleClass" TargetType="Frame">
+            </Style>
+            <Style Class="MessageTextStyleClass" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="MessageFrameReceivedStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="LightGray" />
+                <Setter Property="Margin" Value="5,0,40,0" />
+            </Style>
+            <Style x:Key="MessageFrameSentStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#2196F3" />
+                <Setter Property="Margin" Value="40,0,5,0" />
+            </Style>
+            <Style x:Key="MessageTextReceivedStyle" TargetType="Label">
+            </Style>
+            <Style x:Key="MessageTextSentStyle" TargetType="Label">
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
