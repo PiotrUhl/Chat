@@ -2,15 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileClient.View.ContactSettingsPage"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel"
              Title="Nazwa kontaktu">
+    <ContentPage.BindingContext>
+        <vm:ContactSettings />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout RadioButtonGroup.GroupName="NotificationSettingsContact" RadioButtonGroup.SelectedValue="{Binding NotificationSettingsContactSelection}">
-            <Label Text="Powiadomienia" Style="{StaticResource FormLabelStyle}" Padding="30,30,0,0"/>
-            <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" IsChecked="True" />
-            <RadioButton Content="Tylko w aplikacji" Style="{StaticResource SettingsRadioStyle}" />
-            <RadioButton Content="Wyłączone" Style="{StaticResource SettingsRadioStyle}" />
-            <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" CheckedChanged="RadioButton_CheckedChanged" />
-            <TimePicker x:Name="NotificationTimePicker" Style="{StaticResource SettingsTimePickerStyle}" Opacity="0"/>
+        <StackLayout RadioButtonGroup.GroupName="NotificationSettings" RadioButtonGroup.SelectedValue="{Binding NotificationSelected}" VerticalOptions="CenterAndExpand" Spacing="4">
+            <Label Text="Powiadomienia" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
+            <RadioButton Content="Włączone" Value="Enabled" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Wyłączone" Value="Disabled" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Tymczasowo wyłączone" Value="TempDisabled" Style="{StaticResource SettingsRadioStyle}" />
+            <TimePicker x:Name="NotificationTimePicker" Style="{StaticResource SettingsTimePickerStyle}" Time="{Binding TemporaryDisableTime}" Opacity="{Binding TimePickerVisibility}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
