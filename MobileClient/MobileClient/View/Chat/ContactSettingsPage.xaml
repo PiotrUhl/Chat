@@ -4,12 +4,13 @@
              x:Class="MobileClient.View.ContactSettingsPage"
              Title="Nazwa kontaktu">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout RadioButtonGroup.GroupName="NotificationSettingsContact" RadioButtonGroup.SelectedValue="{Binding NotificationSettingsContactSelection}">
             <Label Text="Powiadomienia" Style="{StaticResource FormLabelStyle}" Padding="30,30,0,0"/>
-            <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" IsChecked="True" />
             <RadioButton Content="Tylko w aplikacji" Style="{StaticResource SettingsRadioStyle}" />
             <RadioButton Content="Wyłączone" Style="{StaticResource SettingsRadioStyle}" />
-            <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" />
+            <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" CheckedChanged="RadioButton_CheckedChanged" />
+            <TimePicker x:Name="NotificationTimePicker" Style="{StaticResource SettingsTimePickerStyle}" Opacity="0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

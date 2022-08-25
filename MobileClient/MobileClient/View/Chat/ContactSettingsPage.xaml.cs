@@ -13,5 +13,17 @@ namespace MobileClient.View {
 		public ContactSettingsPage() {
 			InitializeComponent();
 		}
+
+		private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e) {
+			var radio = (RadioButton)sender;
+			if (radio.IsChecked == true) {
+				NotificationTimePicker.Time = DateTime.Now.TimeOfDay;
+				NotificationTimePicker.Opacity = 1;
+			}
+			else {
+				NotificationTimePicker.Opacity = 0;
+			}
+		}
+
 	}
 }

@@ -17,5 +17,16 @@ namespace MobileClient.View {
 		private void LogoutButton_Clicked(object sender, EventArgs e) {
 			Application.Current.MainPage = new NavigationPage(new ServerSelectPage());
 		}
+
+		private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e) {
+			var radio = (RadioButton)sender;
+			if (radio.IsChecked == true) {
+				NotificationTimePicker.Time = DateTime.Now.TimeOfDay;
+				NotificationTimePicker.Opacity = 1;
+			}
+			else {
+				NotificationTimePicker.Opacity = 0;
+			}
+		}
 	}
 }

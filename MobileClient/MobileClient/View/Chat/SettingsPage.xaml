@@ -15,12 +15,13 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout VerticalOptions="FillAndExpand">
-                <StackLayout VerticalOptions="CenterAndExpand" Spacing="4">
+                <StackLayout RadioButtonGroup.GroupName="NotificationSettingsGlobal" RadioButtonGroup.SelectedValue="{Binding NotificationSettingsGlobalSelection}" VerticalOptions="CenterAndExpand" Spacing="4">
                     <Label Text="Powiadomienia" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                    <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" />
+                    <RadioButton Content="Włączone" Style="{StaticResource SettingsRadioStyle}" IsChecked="True" />
                     <RadioButton Content="Tylko w aplikacji" Style="{StaticResource SettingsRadioStyle}" />
                     <RadioButton Content="Wyłączone" Style="{StaticResource SettingsRadioStyle}" />
-                    <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" />
+                    <RadioButton Content="Tymczasowo wyłączone" Style="{StaticResource SettingsRadioStyle}" CheckedChanged="RadioButton_CheckedChanged" />
+                    <TimePicker x:Name="NotificationTimePicker" Style="{StaticResource SettingsTimePickerStyle}" Opacity="0"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="CenterAndExpand" Spacing="4">
                     <Label Text="Edycja konta użytkownika" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
