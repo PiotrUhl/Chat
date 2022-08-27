@@ -2,22 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileClient.View.ServerAddPage"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel"
              Title="Dodaj serwer">
+    <ContentPage.BindingContext>
+        <vm:ServerAdd />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout VerticalOptions="Start">
-                <Label x:Name="ErrorLabel" Text="Błąd połączenia z serwerem" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,25,0,0"/>
+                <Label x:Name="ErrorLabel" Text="{Binding ErrorText}" Opacity="{Binding ErrorOpacity}" Style="{StaticResource ErrorLabelStyle}" Padding="0,25,0,0"/>
             </StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand" Padding="0,0,0,45">
                 <Label Text="IP serwera:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                <Entry x:Name="IpEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Entry Text="{Binding IpText}" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
                 <Label Text="Port:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                <Entry x:Name="PortEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Entry Text="{Binding PortText}" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
                 <Label Text="Nazwa serwera:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                <Entry x:Name="NameEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Entry Text="{Binding NameText}" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
             </StackLayout>
             <StackLayout  VerticalOptions="End">
-                <Button x:Name="AddSeverButton" Text="Połącz" Style="{StaticResource ConfirmButtonStyle}" Clicked="AddSeverButton_Clicked" />
+                <Button Text="Połącz" Command="{Binding AddServerCommand}" Style="{StaticResource ConfirmButtonStyle}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

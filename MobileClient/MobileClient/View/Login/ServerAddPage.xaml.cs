@@ -13,8 +13,5 @@ namespace MobileClient.View {
 		public ServerAddPage() {
 			InitializeComponent();
 		}
-		private void AddSeverButton_Clicked(object sender, EventArgs e) {
-			;
-		}
 	}
 }
