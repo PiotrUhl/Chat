@@ -13,11 +13,5 @@ namespace MobileClient.View {
 		public LoginPage() {
 			InitializeComponent();
 		}
-		private void LoginButton_Clicked(object sender, EventArgs e) {
-			Application.Current.MainPage = new NavigationPage(new ListPage());
-		}
-		private async void RegisterButton_Clicked(object sender, EventArgs e) {
-			await Navigation.PushAsync(new RegisterPage());
-		}
 	}
 }

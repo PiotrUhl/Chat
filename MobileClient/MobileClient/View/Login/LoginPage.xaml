@@ -2,7 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileClient.View.LoginPage"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel"
              Title="Logowanie">
+    <ContentPage.BindingContext>
+        <vm:Login />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout VerticalOptions="Start">
@@ -13,14 +17,14 @@
             </StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand">
                 <Label Text="Login:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                <Entry x:Name="LoginEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
+                <Entry x:Name="LoginEntry" Text="{Binding LoginText}" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
                 <Label Text="Hasło:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                <Entry x:Name="PasswordEntry" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
-                <Button x:Name="LoginButton" Text="Zaloguj" Style="{StaticResource ConfirmButtonStyle}" Clicked="LoginButton_Clicked" />
+                <Entry x:Name="PasswordEntry" Text="{Binding PasswordText}" Style="{StaticResource FormInputStyle}" IsPassword="True" Margin="30,0,30,0" />
+                <Button x:Name="LoginButton" Text="Zaloguj" Command="{Binding LoginCommand}" Style="{StaticResource ConfirmButtonStyle}" />
             </StackLayout>
             <StackLayout  VerticalOptions="End">
                 <Label Text="Nie masz konta?" Style="{StaticResource FormLabelStyle}" HorizontalOptions="Center" />
-                <Button x:Name="RegisterButton" Text="Zarejestruj" Style="{StaticResource ConfirmButtonStyle}" Clicked="RegisterButton_Clicked" />
+                <Button x:Name="RegisterButton" Text="Zarejestruj" Command="{Binding RegisterCommand}" Style="{StaticResource ConfirmButtonStyle}" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
