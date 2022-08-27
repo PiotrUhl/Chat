@@ -1,32 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MobileClient.View.ServerSelectPage">
-
+             x:Class="MobileClient.View.ServerSelectPage"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel">
+    <ContentPage.BindingContext>
+        <vm:ServerSelect />
+    </ContentPage.BindingContext>
     <StackLayout VerticalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="Start">
+        <StackLayout VerticalOptions="FillAndExpand">
             <Frame BackgroundColor="#2196F3" Padding="0,0,0,40" CornerRadius="0">
                 <Label Text="Chat" HorizontalTextAlignment="Center" TextColor="White" FontSize="46" Margin="0, 0, 0, 0"/>
             </Frame>
-            <Label x:Name="ErrorLabel" Text="Błąd połączenia z serwerem" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,25,0,25"/>
-            <StackLayout x:Name="ServerList" Padding="30,0,30,0">
-                <Label Text="Wybierz serwer:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
-                <ScrollView>
-                    <StackLayout>
-                        <RadioButton Content="Server 1" Style="{StaticResource ServerListRadioButtonStyle}" />
-                        <RadioButton Content="Server 2" Style="{StaticResource ServerListRadioButtonStyle}" />
-                        <RadioButton Content="Server 3" Style="{StaticResource ServerListRadioButtonStyle}" />
-                        <RadioButton Content="Server 4" Style="{StaticResource ServerListRadioButtonStyle}" />
-                        <Button x:Name="AddServer" Text="Dodaj nowy serwer" Style="{StaticResource ServerListAddServerStyle}" Clicked="AddServerButton_Clicked" />
-                    </StackLayout>
-                </ScrollView>
+            <Label x:Name="ErrorLabel" Text="Błąd połączenia z serwerem" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,15,0,15"/>
+            <StackLayout x:Name="ServerList" Padding="30,0,30,10" VerticalOptions="FillAndExpand">
+                <Label Text="Wybierz serwer:" Style="{StaticResource FormLabelStyle}" Padding="0,0,0,0"/>
+                <ListView ItemsSource="{Binding ServerList}" SelectedItem="{Binding SelectedServer}" Style="{StaticResource ServerListViewStyle}" VerticalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Style="{StaticResource ServerListCellPanelStyle}">
+                                    <Label Style="{StaticResource ServerListMainLabelStyle}" Text="{Binding DisplayName}" VerticalOptions="StartAndExpand" />
+                                    <Label Style="{StaticResource ServerListSecondaryLabelStyle}" Text="{Binding Ip}" VerticalOptions="End" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </StackLayout>
-        <StackLayout VerticalOptions="CenterAndExpand">
-            <!-- middle controls -->
-        </StackLayout>
-        <StackLayout  VerticalOptions="End">
-            <Button x:Name="ConnectButton" Text="Połącz" Style="{StaticResource ConfirmButtonStyle}" Clicked="ConnectButton_Clicked" />
+        <StackLayout VerticalOptions="End">
+            <Button x:Name="AddServer" Text="Dodaj nowy serwer" Style="{StaticResource ConfirmButtonStyle}" Command="{Binding AddServerCommand}"/>
+            <Button x:Name="ConnectButton" Text="Połącz" Style="{StaticResource ConfirmButtonStyle}" Command="{Binding ConnectCommand}" />
         </StackLayout>
     </StackLayout>
 

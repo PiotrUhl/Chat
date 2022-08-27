@@ -11,13 +11,5 @@ namespace MobileClient.View {
 		public ServerSelectPage() {
 			InitializeComponent();
 		}
-
-		private async void ConnectButton_Clicked(object sender, EventArgs e) {
-			await Navigation.PushAsync(new LoginPage());
-		}
-
-		private async void AddServerButton_Clicked(object sender, EventArgs e) {
-			await Navigation.PushAsync(new ServerAddPage());
-		}
 	}
 }
