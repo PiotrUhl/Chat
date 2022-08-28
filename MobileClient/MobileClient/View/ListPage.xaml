@@ -18,11 +18,11 @@
         </StackLayout>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <ListView x:Name="ContactListView" ItemsSource="{Binding ContactList}" SelectedItem="{Binding SelectedContact}" Style="{StaticResource ContactListViewStyle}" VerticalOptions="FillAndExpand">
+        <ListView x:Name="ContactListView" ItemsSource="{Binding ContactList}" Style="{StaticResource ContactListViewStyle}" SelectionMode="None" VerticalOptions="FillAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Button Text="{Binding Name}" Command="{Binding Path=BindingContext.ContactCommand, Source={x:Reference Name=ContactListPage}}" CommandParameter="{Binding Id}" Style="{StaticResource ContactButtonStyle}" />
+                        <Button Text="{Binding Name}" Command="{Binding Path=BindingContext.ContactCommand, Source={x:Reference Name=ContactListPage}}" CommandParameter="{Binding .}" Style="{StaticResource ContactButtonStyle}" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

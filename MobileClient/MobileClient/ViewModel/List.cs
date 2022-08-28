@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MobileClient.ViewModel {
@@ -17,45 +18,36 @@ namespace MobileClient.ViewModel {
 		#endregion
 
 		public ObservableCollection<Model.Contact> ContactList { get; set; }
-		private Model.Server selectedContact = null;
-		public Model.Server SelectedContact {
-			get => selectedContact;
-			set {
-				if (selectedContact != value) {
-					selectedContact = value;
-					NotifyPropertyChanged("SelectedContact");
-				}
-			}
-		}
 
 		public Command SettingsCommand { get; private set; }
-		public Command<int> ContactCommand { get; private set; }
+		public Command ContactCommand { get; private set; }
 
 		public List() {
 			SettingsCommand = makeSettingsCommand();
 			ContactCommand = makeContactCommand();
 
-			ContactList = new ObservableCollection<Model.Contact>();
-			ContactList.Add(new Model.Contact {
-				Id = 1,
-				Name = "Kontakt 1"
-			});
-			ContactList.Add(new Model.Contact {
-				Id = 2,
-				Name = "Kontakt 2"
-			});
-			ContactList.Add(new Model.Contact {
-				Id = 3,
-				Name = "Kontakt 3"
-			});
-			ContactList.Add(new Model.Contact {
-				Id = 4,
-				Name = "Kontakt 4"
-			});
-			ContactList.Add(new Model.Contact {
-				Id = 5,
-				Name = "Kontakt 5"
-			});
+			ContactList = new ObservableCollection<Model.Contact> {
+				new Model.Contact {
+					Id = 1,
+					Name = "Kontakt 1"
+				},
+				new Model.Contact {
+					Id = 2,
+					Name = "Kontakt 2"
+				},
+				new Model.Contact {
+					Id = 3,
+					Name = "Kontakt 3"
+				},
+				new Model.Contact {
+					Id = 4,
+					Name = "Kontakt 4"
+				},
+				new Model.Contact {
+					Id = 5,
+					Name = "Kontakt 5"
+				}
+			};
 		}
 
 		private Command makeSettingsCommand() {
@@ -69,12 +61,12 @@ namespace MobileClient.ViewModel {
 			);
 		}
 
-		private Command<int> makeContactCommand() {
-			return new Command<int>(
-				execute: async (int id) => {
+		private Command makeContactCommand() {
+			return new Command<Model.Contact>(
+				execute: async (Model.Contact contact) => {
 					await Application.Current.MainPage.Navigation.PushAsync(new View.ConversationPage());
 				},
-				canExecute: (int id) => {
+				canExecute: (Model.Contact contact) => {
 					return true;
 				}
 			);

@@ -71,6 +71,9 @@
                 <Setter Property="Margin" Value="24,0,24,0" />
                 <Setter Property="TextTransform" Value="None" />
             </Style>
+            <Style x:Key="MessageListViewStyle" TargetType="ListView">
+
+            </Style>
             <Style Class="MessageControlStyle" TargetType="my:Message">
                 <Setter Property="CornerRadius" Value="0" />
                 <Setter Property="Padding" Value="10" />
@@ -91,6 +94,9 @@
             <Style x:Key="MessageTextReceivedStyle" TargetType="Label">
             </Style>
             <Style x:Key="MessageTextSentStyle" TargetType="Label">
+            </Style>
+            <Style x:Key="ConversationSendEntryStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

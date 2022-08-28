@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:my="clr-namespace:MobileClient.Controls"
-             x:Class="MobileClient.View.ConversationPage">
+             x:Class="MobileClient.View.ConversationPage"
+             xmlns:helpers="clr-namespace:MobileClient.Helpers"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel">
+    <ContentPage.BindingContext>
+        <vm:Conversation />
+    </ContentPage.BindingContext>
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
@@ -15,19 +20,19 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
-            <StackLayout VerticalOptions="EndAndExpand" Padding="0,0,0,0">
-                <ScrollView>
-                    <StackLayout>
-                        <my:Message Text="Wiadomość 1" StyleClass="MessageControlStyle" />
-                        <my:Message Text="Wiadomość 2" Sent="True" StyleClass="MessageControlStyle" />
-                        <my:Message Text="Wiadomość 3" Sent="False" StyleClass="MessageControlStyle" />
-                    </StackLayout>
-                </ScrollView>
-            </StackLayout>
+            <ListView x:Name="MessageListView" ItemsSource="{Binding MessageList}" Style="{StaticResource MessageListViewStyle}" SelectionMode="None" VerticalOptions="FillAndExpand">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <my:Message Text="{Binding Text}" Sent="{Binding Recieved, Converter={helpers:NotConverter}}" StyleClass="MessageControlStyle" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Frame BackgroundColor="#2196F3" CornerRadius="0" HeightRequest="60" Padding="0">
             <StackLayout Orientation="Horizontal" VerticalOptions="End" Padding="10,4,0,4">
-                <Entry HorizontalOptions="FillAndExpand" />
-                <Button Text="&#xe163;" FontFamily="Material" Style="{StaticResource IconButtonStyle}" HorizontalOptions="End"/>
+                <Entry Text="{Binding MessageText}" Style="{StaticResource ConversationSendEntryStyle}" HorizontalOptions="FillAndExpand" />
+                <Button Text="&#xe163;" FontFamily="Material" Command="{Binding SendCommand}" Style="{StaticResource IconButtonStyle}" HorizontalOptions="End"/>
             </StackLayout>
             </Frame>
         </StackLayout>
