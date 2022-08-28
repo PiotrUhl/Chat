@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel"
+             x:Class="MobileClient.View.ListPage"
+             x:Name="ContactListPage">
+    <ContentPage.BindingContext>
+        <vm:List />
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
+                <Label Text="Logowanie" Style="{StaticResource TitleViewLabelStyle}" />
+            </StackLayout>
+            <StackLayout HorizontalOptions="End">
+                <Button Text="&#xe8b8;" FontFamily="Material" Command="{Binding SettingsCommand}" Style="{StaticResource IconButtonStyle}"/>
+            </StackLayout>
+        </StackLayout>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <ListView x:Name="ContactListView" ItemsSource="{Binding ContactList}" SelectedItem="{Binding SelectedContact}" Style="{StaticResource ContactListViewStyle}" VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Button Text="{Binding Name}" Command="{Binding Path=BindingContext.ContactCommand, Source={x:Reference Name=ContactListPage}}" CommandParameter="{Binding Id}" Style="{StaticResource ContactButtonStyle}" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
