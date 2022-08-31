@@ -16,6 +16,17 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
+		public Model.User contact;
+		public Model.User Contact {
+			get => contact;
+			set {
+				if (contact != value) {
+					contact = value;
+					NotifyPropertyChanged("Contact");
+				}
+			}
+		}
+
 		public ObservableCollection<Model.Message> MessageList { get; set; }
 
 		private string messageText;
@@ -30,9 +41,11 @@ namespace MobileClient.ViewModel {
 			}
 		}
 
+		public Command SettingsCommand { get; set; }
 		public Command SendCommand { get; set; }
 
 		public Conversation() {
+			SettingsCommand = makeSettingsCommand();
 			SendCommand = makeSendCommand();
 
 			MessageList = new ObservableCollection<Model.Message> {
@@ -57,6 +70,19 @@ namespace MobileClient.ViewModel {
 					Recieved = true
 				},
 			};
+		}
+
+		private Command makeSettingsCommand() {
+			return new Command(
+				execute: async () => {
+					var page = new View.ContactSettingsPage();
+					((ViewModel.ContactSettings)page.BindingContext).Contact = Contact;
+					await Application.Current.MainPage.Navigation.PushAsync(page);
+				},
+				canExecute: () => {
+					return true;
+				}
+			);
 		}
 
 		private Command makeSendCommand() {

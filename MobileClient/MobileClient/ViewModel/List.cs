@@ -17,7 +17,18 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		public ObservableCollection<Model.Contact> ContactList { get; set; }
+		public Model.User loggedUser;
+		public Model.User LoggedUser {
+			get => loggedUser;
+			set {
+				if (loggedUser != value) {
+					loggedUser = value;
+					NotifyPropertyChanged("LoggedUser");
+				}
+			}
+		}
+
+		public ObservableCollection<Model.User> ContactList { get; set; }
 
 		public Command SettingsCommand { get; private set; }
 		public Command ContactCommand { get; private set; }
@@ -26,24 +37,24 @@ namespace MobileClient.ViewModel {
 			SettingsCommand = makeSettingsCommand();
 			ContactCommand = makeContactCommand();
 
-			ContactList = new ObservableCollection<Model.Contact> {
-				new Model.Contact {
+			ContactList = new ObservableCollection<Model.User> {
+				new Model.User {
 					Id = 1,
 					Name = "Kontakt 1"
 				},
-				new Model.Contact {
+				new Model.User {
 					Id = 2,
 					Name = "Kontakt 2"
 				},
-				new Model.Contact {
+				new Model.User {
 					Id = 3,
 					Name = "Kontakt 3"
 				},
-				new Model.Contact {
+				new Model.User {
 					Id = 4,
 					Name = "Kontakt 4"
 				},
-				new Model.Contact {
+				new Model.User {
 					Id = 5,
 					Name = "Kontakt 5"
 				}
@@ -62,11 +73,13 @@ namespace MobileClient.ViewModel {
 		}
 
 		private Command makeContactCommand() {
-			return new Command<Model.Contact>(
-				execute: async (Model.Contact contact) => {
-					await Application.Current.MainPage.Navigation.PushAsync(new View.ConversationPage());
+			return new Command<Model.User>(
+				execute: async (Model.User contact) => {
+					var page = new View.ConversationPage();
+					((ViewModel.Conversation)page.BindingContext).Contact = contact;
+					await Application.Current.MainPage.Navigation.PushAsync(page);
 				},
-				canExecute: (Model.Contact contact) => {
+				canExecute: (Model.User contact) => {
 					return true;
 				}
 			);

@@ -13,9 +13,5 @@ namespace MobileClient.View {
 		public ConversationPage() {
 			InitializeComponent();
 		}
-
-		private async void MenuButton_Clicked(object sender, EventArgs e) {
-			await Navigation.PushAsync(new ContactSettingsPage());
-		}
 	}
 }

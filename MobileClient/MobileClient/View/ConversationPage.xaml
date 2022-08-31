@@ -11,10 +11,10 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
-                <Label Text="Nazwa kontaktu" Style="{StaticResource TitleViewLabelStyle}" />
+                <Label Text="{Binding Contact.Name}" Style="{StaticResource TitleViewLabelStyle}" />
             </StackLayout>
             <StackLayout HorizontalOptions="End">
-                <Button Text="&#xe5d2;" FontFamily="Material" Style="{StaticResource IconButtonStyle}" Clicked="MenuButton_Clicked"/>
+                <Button Text="&#xe5d2;" FontFamily="Material" Command="{Binding SettingsCommand}" Style="{StaticResource IconButtonStyle}" />
             </StackLayout>
         </StackLayout>
     </NavigationPage.TitleView>
@@ -31,7 +31,7 @@
             </ListView>
             <Frame BackgroundColor="#2196F3" CornerRadius="0" HeightRequest="60" Padding="0">
             <StackLayout Orientation="Horizontal" VerticalOptions="End" Padding="10,4,0,4">
-                <Entry Text="{Binding MessageText}" Style="{StaticResource ConversationSendEntryStyle}" HorizontalOptions="FillAndExpand" />
+                <Editor Text="{Binding MessageText}" Style="{StaticResource ConversationSendEditorStyle}" HorizontalOptions="FillAndExpand" />
                 <Button Text="&#xe163;" FontFamily="Material" Command="{Binding SendCommand}" Style="{StaticResource IconButtonStyle}" HorizontalOptions="End"/>
             </StackLayout>
             </Frame>

@@ -70,7 +70,9 @@ namespace MobileClient.ViewModel {
 		}
 
 		private void LogUserIn(string login, string password) {
-			Application.Current.MainPage = new NavigationPage(new View.ListPage());
+			var page = new View.ListPage();
+			((ViewModel.List)page.BindingContext).LoggedUser = new Model.User() { Id = 0, Name = login };
+			Application.Current.MainPage = new NavigationPage(page);
 		}
 
 	}
