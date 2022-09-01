@@ -2,36 +2,40 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileClient.View.ServerSelectPage"
-             xmlns:vm="clr-namespace:MobileClient.ViewModel">
+             xmlns:vm="clr-namespace:MobileClient.ViewModel"
+             NavigationPage.HasNavigationBar="false">
     <ContentPage.BindingContext>
         <vm:ServerSelect />
     </ContentPage.BindingContext>
-    <StackLayout VerticalOptions="FillAndExpand">
-        <StackLayout VerticalOptions="FillAndExpand">
-            <Frame BackgroundColor="#2196F3" Padding="0,0,0,40" CornerRadius="0">
-                <Label Text="Chat" HorizontalTextAlignment="Center" TextColor="White" FontSize="46" Margin="0, 0, 0, 0"/>
-            </Frame>
-            <Label x:Name="ErrorLabel" Text="Błąd połączenia z serwerem" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,15,0,15"/>
-            <StackLayout x:Name="ServerList" Padding="30,0,30,10" VerticalOptions="FillAndExpand">
-                <Label Text="Wybierz serwer:" Style="{StaticResource FormLabelStyle}" Padding="0,0,0,0"/>
-                <ListView ItemsSource="{Binding ServerList}" SelectedItem="{Binding SelectedServer}" Style="{StaticResource ServerListViewStyle}" VerticalOptions="FillAndExpand">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout Style="{StaticResource ServerListCellPanelStyle}">
-                                    <Label Style="{StaticResource ServerListMainLabelStyle}" Text="{Binding DisplayName}" VerticalOptions="StartAndExpand" />
-                                    <Label Style="{StaticResource ServerListSecondaryLabelStyle}" Text="{Binding Ip}" VerticalOptions="End" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+    <AbsoluteLayout>
+        <StackLayout VerticalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
+            <StackLayout VerticalOptions="FillAndExpand">
+                <Frame BackgroundColor="#2196F3" Padding="0,56,0,40" CornerRadius="0">
+                    <Label Text="Chat" HorizontalTextAlignment="Center" TextColor="White" FontSize="46" Margin="0, 0, 0, 0"/>
+                </Frame>
+                <Label x:Name="ErrorLabel" Text="{Binding ErrorText}" Style="{StaticResource ErrorLabelStyle}" Padding="0,15,0,15"/>
+                <StackLayout x:Name="ServerList" Padding="30,0,30,10" VerticalOptions="FillAndExpand">
+                    <Label Text="Wybierz serwer:" Style="{StaticResource FormLabelStyle}" Padding="0,0,0,0"/>
+                    <ListView ItemsSource="{Binding ServerList}" SelectedItem="{Binding SelectedServer}" Style="{StaticResource ServerListViewStyle}" VerticalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Style="{StaticResource ServerListCellPanelStyle}">
+                                        <Label Style="{StaticResource ServerListMainLabelStyle}" Text="{Binding DisplayName}" VerticalOptions="StartAndExpand" />
+                                        <Label Style="{StaticResource ServerListSecondaryLabelStyle}" Text="{Binding Ip}" VerticalOptions="End" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout VerticalOptions="End">
+                <Button x:Name="AddServer" Text="Dodaj nowy serwer" Style="{StaticResource ConfirmButtonStyle}" Command="{Binding AddServerCommand}"/>
+                <Button x:Name="ConnectButton" Text="Połącz" Style="{StaticResource ConfirmButtonStyle}" Command="{Binding ConnectCommand}" />
             </StackLayout>
         </StackLayout>
-        <StackLayout VerticalOptions="End">
-            <Button x:Name="AddServer" Text="Dodaj nowy serwer" Style="{StaticResource ConfirmButtonStyle}" Command="{Binding AddServerCommand}"/>
-            <Button x:Name="ConnectButton" Text="Połącz" Style="{StaticResource ConfirmButtonStyle}" Command="{Binding ConnectCommand}" />
-        </StackLayout>
-    </StackLayout>
-
+        <Frame IsVisible="{Binding BusyVisible}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity="0.5" />
+        <ActivityIndicator IsVisible="{Binding BusyVisible}" IsRunning="True"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+    </AbsoluteLayout>
 </ContentPage>

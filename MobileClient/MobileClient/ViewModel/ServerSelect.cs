@@ -19,6 +19,7 @@ namespace MobileClient.ViewModel {
 
 		#region Properties
 		public ObservableCollection<Model.Server> ServerList { get; set; }
+
 		private Model.Server selectedServer = null;
 		public Model.Server SelectedServer {
 			get => selectedServer;
@@ -27,6 +28,28 @@ namespace MobileClient.ViewModel {
 					selectedServer = value;
 					NotifyPropertyChanged("ServerSelected");
 					ConnectCommand?.ChangeCanExecute();
+				}
+			}
+		}
+
+		private string errorText = "";
+		public string ErrorText {
+			get => errorText;
+			set {
+				if (errorText != value) {
+					errorText = value;
+					NotifyPropertyChanged("ErrorText");
+				}
+			}
+		}
+
+		private bool busyVisible = false;
+		public bool BusyVisible {
+			get => busyVisible;
+			set {
+				if (busyVisible != value) {
+					busyVisible = value;
+					NotifyPropertyChanged("BusyVisible");
 				}
 			}
 		}
@@ -50,9 +73,9 @@ namespace MobileClient.ViewModel {
 				Port = 1
 			});
 			ServerList.Add(new Model.Server() {
-				DisplayName = "Server 2",
-				Ip = "2.2.2.2",
-				Port = 2
+				DisplayName = "Localserver",
+				Ip = "10.0.2.2",
+				Port = 25567
 			});
 			ServerList.Add(new Model.Server() {
 				DisplayName = "Server 3",
@@ -84,6 +107,7 @@ namespace MobileClient.ViewModel {
 		private Command makeAddServerCommand() {
 			return new Command(
 				execute: async () => {
+					ErrorText = "";
 					await Application.Current.MainPage.Navigation.PushAsync(new View.ServerAddPage(), false);
 				},
 				canExecute: () => {
@@ -93,7 +117,18 @@ namespace MobileClient.ViewModel {
 		}
 
 		private async void ConnectToServer(Model.Server server) {
-			await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage(), false);
+			((App)Application.Current).Network = new Backend.Network(server.Ip, server.Port);
+			BusyVisible = true;
+			if (await ((App)Application.Current).Network.TryConnectAsync() == true) {
+				((App)Application.Current).Server = server;
+				BusyVisible = false;
+				await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage(), false);
+			}
+			else {
+				((App)Application.Current).Network = null;
+				ErrorText = "Błąd połączenia z serwerem";
+				BusyVisible = false;
+			}
 		}
 	}
 }

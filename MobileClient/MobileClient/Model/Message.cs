@@ -7,5 +7,8 @@ namespace MobileClient.Model {
 		public long Id { get; set; }
 		public string Text { get; set; }
 		public bool Recieved { get; set; }
+
+		public int ContactId { get; set; }
+		public virtual User Contact { get; set; }
 	}
 }

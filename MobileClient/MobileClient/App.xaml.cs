@@ -6,6 +6,11 @@ using Xamarin.Forms.Xaml;
 
 namespace MobileClient {
 	public partial class App : Application {
+
+		public Backend.Network Network { get; set; } = null;
+		public Model.Server Server { get; set; } = null;
+		public Model.User User { get; set; } = null;
+
 		public App() {
 			InitializeComponent();
 

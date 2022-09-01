@@ -17,7 +17,7 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		public Model.User loggedUser;
+		public Model.User loggedUser = ((App)Application.Current).User;
 		public Model.User LoggedUser {
 			get => loggedUser;
 			set {
