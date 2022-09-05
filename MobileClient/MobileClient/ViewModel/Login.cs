@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using System.Text;
 using Xamarin.Forms;
 
@@ -14,6 +15,28 @@ namespace MobileClient.ViewModel {
 				PropertyChanged(this, new PropertyChangedEventArgs(name));
 		}
 		#endregion
+
+		private string serverName = "";
+		public string ServerName {
+			get => serverName;
+			set {
+				if (serverName != value) {
+					serverName = value;
+					NotifyPropertyChanged("ServerName");
+				}
+			}
+		}
+
+		private string errorText = "";
+		public string ErrorText {
+			get => errorText;
+			set {
+				if (errorText != value) {
+					errorText = value;
+					NotifyPropertyChanged("ErrorText");
+				}
+			}
+		}
 
 		private string loginText;
 		public string LoginText {
@@ -43,6 +66,7 @@ namespace MobileClient.ViewModel {
 		public Command RegisterCommand { get; private set; }
 
 		public Login() {
+			ServerName = ((App)Application.Current).Server.DisplayName;
 			LoginCommand = makeLoginCommand();
 			RegisterCommand = makeRegisterCommand();
 		}
@@ -70,10 +94,24 @@ namespace MobileClient.ViewModel {
 		}
 
 		private void LogUserIn(string login, string password) {
-			var page = new View.ListPage();
-			((ViewModel.List)page.BindingContext).LoggedUser = new Model.User() { Id = 0, Name = login };
-			Application.Current.MainPage = new NavigationPage(page);
+			//BusyVisible = true;
+			byte[] passhash = null;
+			using (SHA256 mySHA256 = SHA256.Create()) {
+				passhash = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(password));
+			}
+			var userId = ((App)Application.Current).Network.LogIn(login, passhash);
+			if (userId > 0) {
+				string userName = ((App)Application.Current).Network.GetClient(userId);
+				((App)Application.Current).User = new Model.User() { Id = userId, Name = userName };
+				ErrorText = "";
+				//BusyVisible = false;
+				Application.Current.MainPage = new NavigationPage(new View.ListPage());
+			}
+			else {
+				PasswordText = "";
+				ErrorText = "Błąd logowania";
+				//BusyVisible = false;
+			}
 		}
-
 	}
 }

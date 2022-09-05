@@ -11,9 +11,9 @@
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout VerticalOptions="Start">
                 <Frame BackgroundColor="#2196F3" Padding="0,40,0,40" CornerRadius="0">
-                    <Label Text="Logo serwera" HorizontalTextAlignment="Center" TextColor="White" FontSize="46" Margin="0, 0, 0, 0"/>
+                    <Label Text="{Binding ServerName}" HorizontalTextAlignment="Center" TextColor="White" FontSize="46" Margin="0, 0, 0, 0"/>
                 </Frame>
-                <Label x:Name="ErrorLabel" Text="Błąd logowania" Style="{StaticResource ErrorLabelStyle}" Opacity="0" Padding="0,25,0,0"/>
+                <Label x:Name="ErrorLabel" Text="{Binding ErrorText}" Style="{StaticResource ErrorLabelStyle}" Padding="0,25,0,0"/>
             </StackLayout>
             <StackLayout VerticalOptions="CenterAndExpand">
                 <Label Text="Login:" Style="{StaticResource FormLabelStyle}" Padding="30,0,0,0"/>
