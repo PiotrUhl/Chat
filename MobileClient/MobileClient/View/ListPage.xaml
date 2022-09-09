@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:MobileClient.ViewModel"
              x:Class="MobileClient.View.ListPage"
+             xmlns:vm="clr-namespace:MobileClient.ViewModel"
+             xmlns:helpers="clr-namespace:MobileClient.Helpers"
              x:Name="ContactListPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:BoldConverter x:Key="boldConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <vm:List />
     </ContentPage.BindingContext>
@@ -22,7 +28,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Button Text="{Binding Name}" Command="{Binding Path=BindingContext.ContactCommand, Source={x:Reference Name=ContactListPage}}" CommandParameter="{Binding .}" Style="{StaticResource ContactButtonStyle}" />
+                        <Button Text="{Binding DisplayName}" FontAttributes="{Binding New, Converter={StaticResource boldConverter}}" Command="{Binding Path=BindingContext.ContactCommand, Source={x:Reference Name=ContactListPage}}" CommandParameter="{Binding .}" Style="{StaticResource ContactButtonStyle}" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

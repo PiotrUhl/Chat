@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -17,6 +18,8 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
+		private int NewestMessageId = 0;
+
 		public Model.User loggedUser = ((App)Application.Current).User;
 		public Model.User LoggedUser {
 			get => loggedUser;
@@ -28,7 +31,7 @@ namespace MobileClient.ViewModel {
 			}
 		}
 
-		public ObservableCollection<Model.User> ContactList { get; set; }
+		public ObservableCollection<Model.Contact> ContactList { get; set; }
 
 		public Command SettingsCommand { get; private set; }
 		public Command ContactCommand { get; private set; }
@@ -37,28 +40,30 @@ namespace MobileClient.ViewModel {
 			SettingsCommand = makeSettingsCommand();
 			ContactCommand = makeContactCommand();
 
-			ContactList = new ObservableCollection<Model.User> {
-				new Model.User {
-					Id = 1,
-					Name = "Kontakt 1"
-				},
-				new Model.User {
-					Id = 2,
-					Name = "Kontakt 2"
-				},
-				new Model.User {
-					Id = 3,
-					Name = "Kontakt 3"
-				},
-				new Model.User {
-					Id = 4,
-					Name = "Kontakt 4"
-				},
-				new Model.User {
-					Id = 5,
-					Name = "Kontakt 5"
+			flilContactList();
+		}
+
+		private void flilContactList() {
+			ContactList = new ObservableCollection<Model.Contact>();
+
+			Backend.Network network = ((App)Application.Current).Network;
+
+			//get list of contact with new messages
+			var checkResult = network.Check(((App)Application.Current).User.Id, NewestMessageId);
+			//updated contact list
+			foreach (var id in checkResult) {
+				var contact = ContactList.Where(_ => _.Id == id).SingleOrDefault();
+				if (contact == default) {
+					var name = network.GetClient(id);
+					contact = new Model.Contact() { Id = id, DisplayName = name, New = true };
+					ContactList.Add(contact);
 				}
-			};
+				else {
+					contact.New = true;
+					//viewmodel.Contacts.Remove(contact);
+					//viewmodel.Contacts.Insert(0, contact);
+				}
+			}
 		}
 
 		private Command makeSettingsCommand() {
