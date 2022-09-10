@@ -25,12 +25,12 @@ namespace MobileClient.Model {
 			}
 		}
 
-		private string name;
-		public string Name {
-			get => name;
+		private string displayName;
+		public string DisplayName {
+			get => displayName;
 			set {
-				if (name != value) {
-					name = value;
+				if (displayName != value) {
+					displayName = value;
 					NotifyPropertyChanged("Name");
 				}
 			}

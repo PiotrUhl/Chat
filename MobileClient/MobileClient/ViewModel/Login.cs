@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Xamarin.Forms;
@@ -102,8 +103,12 @@ namespace MobileClient.ViewModel {
 			var userId = ((App)Application.Current).Network.LogIn(login, passhash);
 			if (userId > 0) {
 				string userName = ((App)Application.Current).Network.GetClient(userId);
-				((App)Application.Current).User = new Model.User() { Id = userId, Name = userName };
+				var user = new Model.User() { Id = userId, DisplayName = userName };
+				((App)Application.Current).User = user;
 				ErrorText = "";
+				using (var context = new Model.Context()) {
+					context.GlobalSettings.First().LoggedUser = user;
+				}
 				//BusyVisible = false;
 				Application.Current.MainPage = new NavigationPage(new View.ListPage());
 			}

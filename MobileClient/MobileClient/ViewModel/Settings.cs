@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -117,6 +118,9 @@ namespace MobileClient.ViewModel {
 		private Command makeLogoutCommand() {
 			return new Command(
 				execute: async () => {
+					using (var context = new Model.Context()) {
+						context.GlobalSettings.First().LoggedUser = null;
+					}
 					Application.Current.MainPage = new NavigationPage(new View.ServerSelectPage());
 					await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage(), false);
 				},

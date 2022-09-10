@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -64,34 +65,36 @@ namespace MobileClient.ViewModel {
 			ConnectCommand = makeConnectCommand();
 			AddServerCommand = makeAddServerCommand();
 
-			ServerList = new ObservableCollection<Model.Server>();
+			using (var context = new Model.Context()) {
+				ServerList = new ObservableCollection<Model.Server>(context.Servers.OrderBy(s => s.LastConnected));
+			}
 
 			//debug
-			ServerList.Add(new Model.Server() {
-				DisplayName = "Server 1",
-				Ip = "1.1.1.1",
-				Port = 1
-			});
-			ServerList.Add(new Model.Server() {
-				DisplayName = "Localserver",
-				Ip = "10.0.2.2",
-				Port = 25567
-			});
-			ServerList.Add(new Model.Server() {
-				DisplayName = "Server 3",
-				Ip = "3.3.3.3",
-				Port = 3
-			});
-			ServerList.Add(new Model.Server() {
-				DisplayName = "Server 4",
-				Ip = "4.4.4.4",
-				Port = 4
-			});
-			ServerList.Add(new Model.Server() {
-				DisplayName = "Server 5",
-				Ip = "5.5.5.5",
-				Port = 5
-			});
+			//ServerList.Add(new Model.Server() {
+			//	DisplayName = "Server 1",
+			//	Ip = "1.1.1.1",
+			//	Port = 1
+			//});
+			//ServerList.Add(new Model.Server() {
+			//	DisplayName = "Localserver",
+			//	Ip = "10.0.2.2",
+			//	Port = 25567
+			//});
+			//ServerList.Add(new Model.Server() {
+			//	DisplayName = "Server 3",
+			//	Ip = "3.3.3.3",
+			//	Port = 3
+			//});
+			//ServerList.Add(new Model.Server() {
+			//	DisplayName = "Server 4",
+			//	Ip = "4.4.4.4",
+			//	Port = 4
+			//});
+			//ServerList.Add(new Model.Server() {
+			//	DisplayName = "Server 5",
+			//	Ip = "5.5.5.5",
+			//	Port = 5
+			//});
 		}
 
 		private Command makeConnectCommand() {
@@ -121,6 +124,10 @@ namespace MobileClient.ViewModel {
 			BusyVisible = true;
 			if (await ((App)Application.Current).Network.TryConnectAsync() == true) {
 				((App)Application.Current).Server = server;
+				using (var context = new Model.Context()) {
+					server.LastConnected = DateTime.Now;
+					context.GlobalSettings.First().ConnectedServer = server;
+				}
 				BusyVisible = false;
 				await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage(), false);
 			}

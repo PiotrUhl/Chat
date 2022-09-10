@@ -16,7 +16,7 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		public Model.User Contact { get; set; }
+		public Model.Contact Contact { get; set; }
 
 		#region Properties
 		private string notificationSelected = "Enabled";
