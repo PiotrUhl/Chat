@@ -15,6 +15,9 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
+		public delegate void AddServerDelegate(Model.Server server);
+		public AddServerDelegate AddServerCallback;
+
 		private string ipText;
 		public string IpText {
 			get => ipText;
@@ -91,8 +94,14 @@ namespace MobileClient.ViewModel {
 		}
 
 		private async void AddServer(string ip, string port, string name) {
+			var server = new Model.Server() { Ip = ip, Port = UInt16.Parse(port), DisplayName = name }; //todo: obsługa błędów (parse)
+			using (var context = new Model.Context()) {
+				context.Servers.Add(server);
+				context.SaveChanges();
+			}
+			AddServerCallback(server);
 			await Application.Current.MainPage.Navigation.PopAsync();
-			await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage());
+			//await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage());
 		}
 	}
 }

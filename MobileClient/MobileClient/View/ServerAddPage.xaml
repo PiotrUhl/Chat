@@ -21,7 +21,7 @@
                 <Entry Text="{Binding NameText}" Style="{StaticResource FormInputStyle}" Margin="30,0,30,0" />
             </StackLayout>
             <StackLayout  VerticalOptions="End">
-                <Button Text="Połącz" Command="{Binding AddServerCommand}" Style="{StaticResource ConfirmButtonStyle}"/>
+                <Button Text="Dodaj" Command="{Binding AddServerCommand}" Style="{StaticResource ConfirmButtonStyle}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

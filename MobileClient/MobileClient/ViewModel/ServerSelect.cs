@@ -68,33 +68,6 @@ namespace MobileClient.ViewModel {
 			using (var context = new Model.Context()) {
 				ServerList = new ObservableCollection<Model.Server>(context.Servers.OrderBy(s => s.LastConnected));
 			}
-
-			//debug
-			//ServerList.Add(new Model.Server() {
-			//	DisplayName = "Server 1",
-			//	Ip = "1.1.1.1",
-			//	Port = 1
-			//});
-			//ServerList.Add(new Model.Server() {
-			//	DisplayName = "Localserver",
-			//	Ip = "10.0.2.2",
-			//	Port = 25567
-			//});
-			//ServerList.Add(new Model.Server() {
-			//	DisplayName = "Server 3",
-			//	Ip = "3.3.3.3",
-			//	Port = 3
-			//});
-			//ServerList.Add(new Model.Server() {
-			//	DisplayName = "Server 4",
-			//	Ip = "4.4.4.4",
-			//	Port = 4
-			//});
-			//ServerList.Add(new Model.Server() {
-			//	DisplayName = "Server 5",
-			//	Ip = "5.5.5.5",
-			//	Port = 5
-			//});
 		}
 
 		private Command makeConnectCommand() {
@@ -111,7 +84,9 @@ namespace MobileClient.ViewModel {
 			return new Command(
 				execute: async () => {
 					ErrorText = "";
-					await Application.Current.MainPage.Navigation.PushAsync(new View.ServerAddPage(), false);
+					var page = new View.ServerAddPage();
+					((ServerAdd)page.BindingContext).AddServerCallback = (Model.Server server) => ServerList.Add(server);
+					await Application.Current.MainPage.Navigation.PushAsync(page, false);
 				},
 				canExecute: () => {
 					return true;
