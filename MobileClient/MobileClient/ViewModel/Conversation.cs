@@ -77,8 +77,19 @@ namespace MobileClient.ViewModel {
 			);
 		}
 
-		private void sendMessage(string message) {
-			;
+		private void sendMessage(string text) {
+			Backend.Network network = ((App)Application.Current).Network;
+
+			var message = new Model.Message() {
+				Text = text,
+				Recieved = false,
+				ContactId = Contact.Id
+			};
+			message.Id = network.New(((App)Application.Current).User.Id, Contact.Id, text);
+			if (message.Id > 0) {
+				MessageList.Add(message);
+			}
+			MessageText = "";
 		}
 
 		private void loadMessages() {
@@ -91,7 +102,7 @@ namespace MobileClient.ViewModel {
 			}
 			var messages = network.GetNew(((App)Application.Current).User.Id, contact.Id, lastMsgId);
 			foreach (var message in messages.Item1) {
-				MessageList.Add(message);
+				MessageList.Insert(0, message);
 			}
 			network.Read(messages.Item1.Last().Id);
 		}
