@@ -74,7 +74,7 @@
                 <Setter Property="TextTransform" Value="None" />
             </Style>
             <Style x:Key="MessageListViewStyle" TargetType="ListView">
-
+                <Setter Property="Margin" Value="0,2,0,0" />
             </Style>
             <Style Class="MessageControlStyle" TargetType="my:Message">
                 <Setter Property="CornerRadius" Value="0" />

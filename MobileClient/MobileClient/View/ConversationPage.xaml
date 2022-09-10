@@ -5,13 +5,18 @@
              x:Class="MobileClient.View.ConversationPage"
              xmlns:helpers="clr-namespace:MobileClient.Helpers"
              xmlns:vm="clr-namespace:MobileClient.ViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <helpers:NotConverter x:Key="notConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.BindingContext>
         <vm:Conversation />
     </ContentPage.BindingContext>
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
-                <Label Text="{Binding Contact.Name}" Style="{StaticResource TitleViewLabelStyle}" />
+                <Label Text="{Binding Contact.DisplayName}" Style="{StaticResource TitleViewLabelStyle}" />
             </StackLayout>
             <StackLayout HorizontalOptions="End">
                 <Button Text="&#xe5d2;" FontFamily="Material" Command="{Binding SettingsCommand}" Style="{StaticResource IconButtonStyle}" />
@@ -24,7 +29,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <my:Message Text="{Binding Text}" Sent="{Binding Recieved, Converter={helpers:NotConverter}}" StyleClass="MessageControlStyle" />
+                            <my:Message Text="{Binding Text}" Sent="{Binding Recieved, Converter={StaticResource notConverter}}" StyleClass="MessageControlStyle" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

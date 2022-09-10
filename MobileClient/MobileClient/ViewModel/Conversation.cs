@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -16,13 +17,14 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		public Model.User contact;
-		public Model.User Contact {
+		public Model.Contact contact;
+		public Model.Contact Contact {
 			get => contact;
 			set {
 				if (contact != value) {
 					contact = value;
 					NotifyPropertyChanged("Contact");
+					loadMessages();
 				}
 			}
 		}
@@ -48,28 +50,7 @@ namespace MobileClient.ViewModel {
 			SettingsCommand = makeSettingsCommand();
 			SendCommand = makeSendCommand();
 
-			MessageList = new ObservableCollection<Model.Message> {
-				new Model.Message {
-					Id = 1,
-					Text = "Treść pierwszej odebranej wiadomości",
-					Recieved = true
-				},
-				new Model.Message {
-					Id = 2,
-					Text = "Treść drugiej odebranej wiadomości",
-					Recieved = true
-				},
-				new Model.Message {
-					Id = 3,
-					Text = "Treść pierwszej wysłanej wiadomości",
-					Recieved = false
-				},
-				new Model.Message {
-					Id = 4,
-					Text = "Treść trzeciej odebranej wiadomości",
-					Recieved = true
-				},
-			};
+			MessageList = new ObservableCollection<Model.Message>();
 		}
 
 		private Command makeSettingsCommand() {
@@ -98,6 +79,21 @@ namespace MobileClient.ViewModel {
 
 		private void sendMessage(string message) {
 			;
+		}
+
+		private void loadMessages() {
+			Backend.Network network = ((App)Application.Current).Network;
+
+			long lastMsgId = 0;
+
+			if (MessageList.Any()) {
+				lastMsgId = MessageList.Last().Id;
+			}
+			var messages = network.GetNew(((App)Application.Current).User.Id, contact.Id, lastMsgId);
+			foreach (var message in messages.Item1) {
+				MessageList.Add(message);
+			}
+			network.Read(messages.Item1.Last().Id);
 		}
 	}
 }

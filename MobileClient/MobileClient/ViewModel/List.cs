@@ -60,8 +60,8 @@ namespace MobileClient.ViewModel {
 				}
 				else {
 					contact.New = true;
-					//viewmodel.Contacts.Remove(contact);
-					//viewmodel.Contacts.Insert(0, contact);
+					//ContactList.Remove(contact);
+					//ContactList.Insert(0, contact);
 				}
 			}
 		}
@@ -78,13 +78,15 @@ namespace MobileClient.ViewModel {
 		}
 
 		private Command makeContactCommand() {
-			return new Command<Model.User>(
-				execute: async (Model.User contact) => {
+			return new Command<Model.Contact>(
+				execute: async (Model.Contact contact) => {
+					contact.New = false;
+
 					var page = new View.ConversationPage();
 					((ViewModel.Conversation)page.BindingContext).Contact = contact;
 					await Application.Current.MainPage.Navigation.PushAsync(page);
 				},
-				canExecute: (Model.User contact) => {
+				canExecute: (Model.Contact contact) => {
 					return true;
 				}
 			);

@@ -4,7 +4,25 @@ using System.Text;
 
 namespace MobileClient.Model {
 	public class Contact : User {
-		public string DisplayName { get; set; }
-		public bool New { get; set; }
+		private string displayName;
+		public string DisplayName {
+			get => displayName;
+			set {
+				if (displayName != value) {
+					displayName = value;
+					NotifyPropertyChanged("DisplayName");
+				}
+			}
+		}
+		private bool neww;
+		public bool New {
+			get => neww;
+			set {
+				if (neww != value) {
+					neww = value;
+					NotifyPropertyChanged("New");
+				}
+			}
+		}
 	}
 }
