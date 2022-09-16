@@ -7,6 +7,9 @@
     <ContentPage.BindingContext>
         <vm:Login />
     </ContentPage.BindingContext>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
             <StackLayout VerticalOptions="Start">

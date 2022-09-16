@@ -13,5 +13,10 @@ namespace MobileClient.View {
 		public LoginPage() {
 			InitializeComponent();
 		}
+
+		protected override void OnAppearing() {
+			((ViewModel.Login)BindingContext).OnAppearing();
+			base.OnAppearing();
+		}
 	}
 }

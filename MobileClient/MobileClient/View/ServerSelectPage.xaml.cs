@@ -11,5 +11,10 @@ namespace MobileClient.View {
 		public ServerSelectPage() {
 			InitializeComponent();
 		}
-	}
+
+        protected override void OnAppearing() {
+            ((ViewModel.ServerSelect)BindingContext).OnAppearing();
+            base.OnAppearing();
+        }
+    }
 }

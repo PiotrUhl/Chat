@@ -16,7 +16,7 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <StackLayout HorizontalOptions="StartAndExpand" VerticalOptions="Center">
-                <Label Text="{Binding LoggedUser.Name}" Style="{StaticResource TitleViewLabelStyle}" />
+                <Label Text="{Binding LoggedUser.DisplayName}" Style="{StaticResource TitleViewLabelStyle}" />
             </StackLayout>
             <StackLayout HorizontalOptions="End">
                 <Button Text="&#xe8b8;" FontFamily="Material" Command="{Binding SettingsCommand}" Style="{StaticResource IconButtonStyle}"/>

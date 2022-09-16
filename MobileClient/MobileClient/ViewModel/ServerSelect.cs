@@ -65,9 +65,15 @@ namespace MobileClient.ViewModel {
 			ConnectCommand = makeConnectCommand();
 			AddServerCommand = makeAddServerCommand();
 
-			using (var context = new Model.Context()) {
-				ServerList = new ObservableCollection<Model.Server>(context.Servers.OrderBy(s => s.LastConnected));
-			}
+			using var context = new Model.Context();
+			ServerList = new ObservableCollection<Model.Server>(context.Servers.OrderByDescending(s => s.LastConnected));
+		}
+
+		public void OnAppearing() {
+			using var context = new Model.Context();
+			var connectedServer = context.Servers.Where(s => s.Id == context.GlobalSettings.First().ConnectedServerId).FirstOrDefault();
+			if (connectedServer != null)
+				ConnectToServer(connectedServer);
 		}
 
 		private Command makeConnectCommand() {
@@ -101,13 +107,16 @@ namespace MobileClient.ViewModel {
 				((App)Application.Current).Server = server;
 				using (var context = new Model.Context()) {
 					server.LastConnected = DateTime.Now;
-					context.GlobalSettings.First().ConnectedServer = server;
+					context.GlobalSettings.First().ConnectedServerId = server.Id;
+					context.SaveChanges();
 				}
 				BusyVisible = false;
-				await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage(), false);
+				var page = new View.LoginPage();
+				await Application.Current.MainPage.Navigation.PushAsync(page, false);
 			}
 			else {
 				((App)Application.Current).Network = null;
+				((App)Application.Current).Server = null;
 				ErrorText = "Błąd połączenia z serwerem";
 				BusyVisible = false;
 			}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,12 +10,18 @@ namespace MobileClient.Model {
     public class Context : DbContext {
         public DbSet<GlobalSettings> GlobalSettings { get; set; }
         public DbSet<Server> Servers { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public Context() {
             Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<User>().HasKey(u => new {
+                u.ServerId,
+                u.Id
+            });
+            modelBuilder.Entity<User>().HasOne(s => s.Server).WithMany().HasForeignKey(u => u.ServerId);
             modelBuilder.Entity<GlobalSettings>().HasData(
                 new GlobalSettings() { Id = 1 }
             );

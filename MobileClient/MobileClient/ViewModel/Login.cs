@@ -65,11 +65,21 @@ namespace MobileClient.ViewModel {
 
 		public Command LoginCommand { get; private set; }
 		public Command RegisterCommand { get; private set; }
+		public Command BackCommand { get; private set; }
 
 		public Login() {
 			ServerName = ((App)Application.Current).Server.DisplayName;
 			LoginCommand = makeLoginCommand();
 			RegisterCommand = makeRegisterCommand();
+			BackCommand = makeBackCommand();
+		}
+
+		public void OnAppearing() {
+			using (var context = new Model.Context()) {
+				var loggedUser = context.Users.Where(u => u.Id == context.GlobalSettings.FirstOrDefault().LoggedUserId).FirstOrDefault();
+				if (loggedUser != null)
+					InternalLogIn(loggedUser);
+			}
 		}
 
 		private Command makeLoginCommand() {
@@ -94,6 +104,23 @@ namespace MobileClient.ViewModel {
 			);
 		}
 
+		private Command makeBackCommand() {
+			return new Command(
+				execute: async () => {
+					((App)Application.Current).Network = null;
+					((App)Application.Current).Server = null;
+					using (var context = new Model.Context()) {
+						var settings = context.GlobalSettings.First().ConnectedServerId = 0;
+						context.SaveChanges();
+					}
+					await Application.Current.MainPage.Navigation.PopAsync();
+				},
+				canExecute: () => {
+					return true;
+				}
+			);
+		}
+
 		private void LogUserIn(string login, string password) {
 			//BusyVisible = true;
 			byte[] passhash = null;
@@ -103,11 +130,17 @@ namespace MobileClient.ViewModel {
 			var userId = ((App)Application.Current).Network.LogIn(login, passhash);
 			if (userId > 0) {
 				string userName = ((App)Application.Current).Network.GetClient(userId);
-				var user = new Model.User() { Id = userId, DisplayName = userName };
-				((App)Application.Current).User = user;
-				ErrorText = "";
 				using (var context = new Model.Context()) {
-					context.GlobalSettings.First().LoggedUser = user;
+					var user = context.Users.Where(u => u.Id == userId).SingleOrDefault();
+					if (user == default) {
+						user = new Model.User() { ServerId = ((App)Application.Current).Server.Id, Id = userId, Login = login, DisplayName = userName };
+						context.Users.Add(user);
+						context.SaveChanges();
+					}
+					((App)Application.Current).User = user;
+					ErrorText = "";
+					context.GlobalSettings.First().LoggedUserId = user.Id;
+					context.SaveChanges();
 				}
 				//BusyVisible = false;
 				Application.Current.MainPage = new NavigationPage(new View.ListPage());
@@ -117,6 +150,17 @@ namespace MobileClient.ViewModel {
 				ErrorText = "Błąd logowania";
 				//BusyVisible = false;
 			}
+		}
+
+		private void InternalLogIn(Model.User user) {
+			((App)Application.Current).User = user;
+			ErrorText = "";
+			using (var context = new Model.Context()) {
+				context.GlobalSettings.First().LoggedUserId = user.Id;
+				context.SaveChanges();
+			}
+			//BusyVisible = false;
+			Application.Current.MainPage = new NavigationPage(new View.ListPage());
 		}
 	}
 }

@@ -119,10 +119,11 @@ namespace MobileClient.ViewModel {
 			return new Command(
 				execute: async () => {
 					using (var context = new Model.Context()) {
-						context.GlobalSettings.First().LoggedUser = null;
+						context.GlobalSettings.First().LoggedUserId = 0;
+						context.SaveChanges();
 					}
+					((App)Application.Current).User = null;
 					Application.Current.MainPage = new NavigationPage(new View.ServerSelectPage());
-					await Application.Current.MainPage.Navigation.PushAsync(new View.LoginPage(), false);
 				},
 				canExecute: () => {
 					return true;

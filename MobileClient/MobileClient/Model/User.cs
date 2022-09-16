@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace MobileClient.Model {
@@ -14,13 +16,16 @@ namespace MobileClient.Model {
 		}
 		#endregion
 
-		private int id;
-		public int Id {
-			get => id;
+		public int ServerId { get; set; }
+		public int Id { get; set; }
+
+		private string login;
+		public string Login {
+			get => login;
 			set {
-				if (id != value) {
-					id = value;
-					NotifyPropertyChanged("Id");
+				if (login != value) {
+					login = value;
+					NotifyPropertyChanged("Login");
 				}
 			}
 		}
@@ -35,5 +40,7 @@ namespace MobileClient.Model {
 				}
 			}
 		}
+
+		public virtual Server Server { get; set; }
 	}
 }
