@@ -90,6 +90,7 @@ namespace MobileClient.ViewModel {
 				MessageList.Add(message);
 			}
 			MessageText = "";
+			//todo: manage send message database
 		}
 
 		private void loadMessages() {

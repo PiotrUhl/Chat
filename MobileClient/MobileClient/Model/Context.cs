@@ -11,17 +11,14 @@ namespace MobileClient.Model {
         public DbSet<GlobalSettings> GlobalSettings { get; set; }
         public DbSet<Server> Servers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public Context() {
             Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<User>().HasKey(u => new {
-                u.ServerId,
-                u.Id
-            });
-            modelBuilder.Entity<User>().HasOne(s => s.Server).WithMany().HasForeignKey(u => u.ServerId);
             modelBuilder.Entity<GlobalSettings>().HasData(
                 new GlobalSettings() { Id = 1 }
             );
@@ -33,10 +30,9 @@ namespace MobileClient.Model {
                     Port = 25567
                 }
             );
-			//modelBuilder.Entity<Contact>()
-			//    .Property(e => e.New)
-			//    .HasDefaultValue(false);
-		}
+            modelBuilder.Entity<Contact>().Property(e => e.New).HasDefaultValue(false);
+            modelBuilder.Entity<User>().Property(e => e.LastMessageId).HasDefaultValue(0);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "chatApp.db3");

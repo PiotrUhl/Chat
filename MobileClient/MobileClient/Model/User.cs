@@ -16,7 +16,7 @@ namespace MobileClient.Model {
 		}
 		#endregion
 
-		public int ServerId { get; set; }
+		[Key]
 		public int Id { get; set; }
 
 		private string login;
@@ -41,6 +41,6 @@ namespace MobileClient.Model {
 			}
 		}
 
-		public virtual Server Server { get; set; }
+		public long LastMessageId { get; set; }
 	}
 }

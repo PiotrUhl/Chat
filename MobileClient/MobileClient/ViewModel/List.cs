@@ -31,7 +31,16 @@ namespace MobileClient.ViewModel {
 			}
 		}
 
-		public ObservableCollection<Model.Contact> ContactList { get; set; }
+		private ObservableCollection<Model.Contact> contactList;
+		public ObservableCollection<Model.Contact> ContactList {
+			get => contactList;
+			set {
+				if (contactList != value) {
+					contactList = value;
+					NotifyPropertyChanged("ContactList");
+				}
+			}
+		}
 
 		public Command SettingsCommand { get; private set; }
 		public Command ContactCommand { get; private set; }
@@ -40,30 +49,39 @@ namespace MobileClient.ViewModel {
 			SettingsCommand = makeSettingsCommand();
 			ContactCommand = makeContactCommand();
 
-			flilContactList();
+			ReflilContactList();
 		}
 
-		private void flilContactList() {
-			ContactList = new ObservableCollection<Model.Contact>();
+		//private void flilContactList() {
+		//	ContactList = new ObservableCollection<Model.Contact>();
 
-			Backend.Network network = ((App)Application.Current).Network;
+		//	Backend.Network network = ((App)Application.Current).Network;
 
-			//get list of contact with new messages
-			var checkResult = network.Check(((App)Application.Current).User.Id, NewestMessageId);
-			//updated contact list
-			foreach (var id in checkResult) {
-				var contact = ContactList.Where(_ => _.Id == id).SingleOrDefault();
-				if (contact == default) {
-					var name = network.GetClient(id);
-					contact = new Model.Contact() { Id = id, DisplayName = name, New = true };
-					ContactList.Add(contact);
-				}
-				else {
-					contact.New = true;
-					//ContactList.Remove(contact);
-					//ContactList.Insert(0, contact);
-				}
-			}
+		//	//get list of contact with new messages
+		//	var checkResult = network.Check(((App)Application.Current).User.Id, NewestMessageId);
+		//	//updated contact list
+		//	foreach (var id in checkResult) {
+		//		var contact = ContactList.Where(_ => _.Id == id).SingleOrDefault();
+		//		if (contact == default) {
+		//			var name = network.GetClient(id);
+		//			contact = new Model.Contact() { Id = id, DisplayName = name, New = true };
+		//			ContactList.Add(contact);
+		//		}
+		//		else {
+		//			contact.New = true;
+		//			//ContactList.Remove(contact);
+		//			//ContactList.Insert(0, contact);
+		//		}
+		//	}
+		//}
+
+		public void ReflilContactList() {
+			using var context = new Model.Context();
+			ContactList = new ObservableCollection<Model.Contact>(context.Contacts);
+		}
+
+		public void SetContactNew(int id) {
+			ContactList.Single(c => c.Id == id).New = true;
 		}
 
 		private Command makeSettingsCommand() {
@@ -81,6 +99,11 @@ namespace MobileClient.ViewModel {
 			return new Command<Model.Contact>(
 				execute: async (Model.Contact contact) => {
 					contact.New = false;
+
+					using (var context = new Model.Context()) {
+						context.Contacts.Single(c => c.Id == contact.Id).New = false;
+						context.SaveChanges();
+					}
 
 					var page = new View.ConversationPage();
 					((ViewModel.Conversation)page.BindingContext).Contact = contact;

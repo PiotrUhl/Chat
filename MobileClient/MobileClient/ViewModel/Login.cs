@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MobileClient.ViewModel {
@@ -133,7 +134,7 @@ namespace MobileClient.ViewModel {
 				using (var context = new Model.Context()) {
 					var user = context.Users.Where(u => u.Id == userId).SingleOrDefault();
 					if (user == default) {
-						user = new Model.User() { ServerId = ((App)Application.Current).Server.Id, Id = userId, Login = login, DisplayName = userName };
+						user = new Model.User() { Id = userId, Login = login, DisplayName = userName };
 						context.Users.Add(user);
 						context.SaveChanges();
 					}
@@ -143,6 +144,8 @@ namespace MobileClient.ViewModel {
 					context.SaveChanges();
 				}
 				//BusyVisible = false;
+				var worker = new Backend.Worker((App)Application.Current);
+				Task checkingTask = Task.Run(() => worker.Run());
 				Application.Current.MainPage = new NavigationPage(new View.ListPage());
 			}
 			else {
@@ -160,6 +163,8 @@ namespace MobileClient.ViewModel {
 				context.SaveChanges();
 			}
 			//BusyVisible = false;
+			var worker = new Backend.Worker((App)Application.Current);
+			Task checkingTask = Task.Run(() => worker.Run());
 			Application.Current.MainPage = new NavigationPage(new View.ListPage());
 		}
 	}
