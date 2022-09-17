@@ -78,15 +78,19 @@ namespace MobileClient.Backend {
 				foreach (var message in messages.Item1)
 					message.UserId = app.User.Id;
 				context.Messages.AddRange(messages.Item1);
-				context.SaveChanges();
+				context.SaveChanges(); //todo: try remove
 				lastMsgId = messages.Item1.First().Id;
 				if (app.User.LastMessageId < lastMsgId) {
 					context.Users.Where(u => u.Id == app.User.Id).Single().LastMessageId = lastMsgId;
 					app.User.LastMessageId = lastMsgId;
-					context.SaveChanges();
 				}
+				try {
+					((ViewModel.Conversation)App.Current.MainPage.Navigation.NavigationStack.Last().BindingContext).InsertMessages(messages.Item1);
+					context.Contacts.Single(c => c.Id == clientId).New = false;
+				}
+				catch (Exception e) {; }
+				context.SaveChanges();
 			}
-			//todo: if visible, refresh
 		}
 	}
 }

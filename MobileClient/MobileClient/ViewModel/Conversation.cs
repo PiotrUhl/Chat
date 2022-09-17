@@ -53,6 +53,13 @@ namespace MobileClient.ViewModel {
 			MessageList = new ObservableCollection<Model.Message>();
 		}
 
+		public void InsertMessages(IEnumerable<Model.Message> messages) {
+			foreach (var message in messages) {
+				MessageList.Add(message);
+			}
+			Contact.New = false;
+		}
+
 		private Command makeSettingsCommand() {
 			return new Command(
 				execute: async () => {
