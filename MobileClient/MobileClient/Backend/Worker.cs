@@ -43,7 +43,8 @@ namespace MobileClient.Backend {
 									}
 									catch (Exception e) {; }
 									//send notification
-									notificationManager.SendNotification(contact.DisplayName, $"Nowa wiadomość od kontaktu {contact.DisplayName}", DateTime.Now);
+									if (((App)Application.Current).NotificationsEnabled == true)
+										notificationManager.SendNotification(contact.DisplayName, $"Nowa wiadomość od kontaktu {contact.DisplayName}", DateTime.Now);
 								}
 								else {
 									contact.New = true;
@@ -52,7 +53,8 @@ namespace MobileClient.Backend {
 										((ViewModel.List)App.Current.MainPage.Navigation.NavigationStack.First().BindingContext).SetContactNew(contact.Id);
 									} catch (Exception e) {; }
 									//send notification
-									notificationManager.SendNotification(contact.DisplayName, $"Nowa wiadomość od kontaktu {contact.DisplayName}", DateTime.Now);
+									if (((App)Application.Current).NotificationsEnabled == true)
+										notificationManager.SendNotification(contact.DisplayName, $"Nowa wiadomość od kontaktu {contact.DisplayName}", DateTime.Now);
 								}
 								
 								GetMessages(id);

@@ -17,14 +17,20 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		#region Propertied
-		private string notificationSelected = "Enabled";
+		#region Properties
+		private string notificationSelected;
 		public string NotificationSelected {
 			get => notificationSelected;
 			set {
 				if (notificationSelected != value) {
 					notificationSelected = value;
 					NotifyPropertyChanged("NotificationSelected");
+					if (value == "Enabled") {
+						((App)Application.Current).NotificationsEnabled = true;
+					}
+					else {
+						((App)Application.Current).NotificationsEnabled = false;
+					}
 					if (value == "TempDisabled") {
 						TemporaryDisableTime = DateTime.Now.TimeOfDay;
 						TimePickerVisibility = 1;
@@ -107,6 +113,9 @@ namespace MobileClient.ViewModel {
 		#endregion
 
 		public Settings() {
+			notificationSelected = ((App)Application.Current).NotificationsEnabled ? "Enabled" : "Disabled";
+			displayName = ((App)Application.Current).User.DisplayName;
+
 			LogoutCommand = makeLogoutCommand();
 
 			ChangeDisplayNameCommand = makePromptCommand(() => DisplayName, value => DisplayName = value, "Zmień nazwę wyświetlaną", "Wprowadź nową nazwę wyświetlaną");

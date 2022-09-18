@@ -11,6 +11,7 @@ namespace MobileClient {
 		public Backend.Network Network { get; set; } = null;
 		public Model.Server Server { get; set; } = null;
 		public Model.User User { get; set; } = null;
+		public bool NotificationsEnabled { get; set; } = true;
 
 		public App() {
 			InitializeComponent();
