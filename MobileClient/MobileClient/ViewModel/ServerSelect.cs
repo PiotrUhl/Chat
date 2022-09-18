@@ -18,7 +18,6 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		#region Properties
 		public ObservableCollection<Model.Server> ServerList { get; set; }
 
 		private Model.Server selectedServer = null;
@@ -54,12 +53,11 @@ namespace MobileClient.ViewModel {
 				}
 			}
 		}
-		#endregion
 
-		#region Commands
+		private bool firstRun = true;
+
 		public Command ConnectCommand { get; private set; }
 		public Command AddServerCommand { get; private set; }
-		#endregion
 
 		public ServerSelect() {
 			ConnectCommand = makeConnectCommand();
@@ -70,10 +68,13 @@ namespace MobileClient.ViewModel {
 		}
 
 		public void OnAppearing() {
-			using var context = new Model.Context();
-			var connectedServer = context.Servers.Where(s => s.Id == context.GlobalSettings.First().ConnectedServerId).FirstOrDefault();
-			if (connectedServer != null)
-				ConnectToServer(connectedServer);
+			if (firstRun == true) {
+				firstRun = false;
+				using var context = new Model.Context();
+				var connectedServer = context.Servers.Where(s => s.Id == context.GlobalSettings.First().ConnectedServerId).FirstOrDefault();
+				if (connectedServer != null)
+					ConnectToServer(connectedServer);
+			}
 		}
 
 		private Command makeConnectCommand() {
@@ -110,6 +111,7 @@ namespace MobileClient.ViewModel {
 					context.GlobalSettings.First().ConnectedServerId = server.Id;
 					context.SaveChanges();
 				}
+				ErrorText = "";
 				BusyVisible = false;
 				var page = new View.LoginPage();
 				await Application.Current.MainPage.Navigation.PushAsync(page, false);

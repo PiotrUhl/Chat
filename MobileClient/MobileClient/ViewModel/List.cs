@@ -52,29 +52,6 @@ namespace MobileClient.ViewModel {
 			ReflilContactList();
 		}
 
-		//private void flilContactList() {
-		//	ContactList = new ObservableCollection<Model.Contact>();
-
-		//	Backend.Network network = ((App)Application.Current).Network;
-
-		//	//get list of contact with new messages
-		//	var checkResult = network.Check(((App)Application.Current).User.Id, NewestMessageId);
-		//	//updated contact list
-		//	foreach (var id in checkResult) {
-		//		var contact = ContactList.Where(_ => _.Id == id).SingleOrDefault();
-		//		if (contact == default) {
-		//			var name = network.GetClient(id);
-		//			contact = new Model.Contact() { Id = id, DisplayName = name, New = true };
-		//			ContactList.Add(contact);
-		//		}
-		//		else {
-		//			contact.New = true;
-		//			//ContactList.Remove(contact);
-		//			//ContactList.Insert(0, contact);
-		//		}
-		//	}
-		//}
-
 		public void ReflilContactList() {
 			using var context = new Model.Context();
 			ContactList = new ObservableCollection<Model.Contact>(context.Contacts);
