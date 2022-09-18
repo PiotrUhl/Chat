@@ -37,6 +37,7 @@ namespace MobileClient.Backend {
 									var name = app.Network.GetClient(id);
 									contact = new Model.Contact() { Id = id, DisplayName = name, New = true };
 									context.Contacts.Add(contact);
+									context.SaveChanges();
 									//update contact list
 									try {
 										((ViewModel.List)App.Current.MainPage.Navigation.NavigationStack.First().BindingContext).ReflilContactList();
