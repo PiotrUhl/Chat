@@ -93,11 +93,7 @@ namespace MobileClient.ViewModel {
 				ContactId = Contact.Id
 			};
 			message.Id = network.New(((App)Application.Current).User.Id, Contact.Id, text);
-			if (message.Id > 0) {
-				MessageList.Add(message);
-			}
 			MessageText = "";
-			//todo: manage send message database
 		}
 
 		private void loadMessages() {
