@@ -18,8 +18,6 @@ namespace MobileClient.ViewModel {
 		}
 		#endregion
 
-		private int NewestMessageId = 0;
-
 		public Model.User loggedUser = ((App)Application.Current).User;
 		public Model.User LoggedUser {
 			get => loggedUser;
@@ -54,11 +52,14 @@ namespace MobileClient.ViewModel {
 
 		public void ReflilContactList() {
 			using var context = new Model.Context();
-			ContactList = new ObservableCollection<Model.Contact>(context.Contacts);
+			ContactList = new ObservableCollection<Model.Contact>(context.Contacts.OrderByDescending(c => context.Messages.Where(m => m.ContactId == c.Id).OrderBy(mm => mm.Id).Last()));
 		}
 
 		public void SetContactNew(int id) {
-			ContactList.Single(c => c.Id == id).New = true;
+			var contact = ContactList.Single(c => c.Id == id);
+			ContactList.Remove(contact);
+			ContactList.Insert(0, contact);
+			contact.New = true;
 		}
 
 		private Command makeSettingsCommand() {

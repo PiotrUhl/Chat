@@ -60,7 +60,7 @@ namespace MobileClient.Backend {
 							//context.SaveChanges();
 						}
 					}
-					Thread.Sleep(5000);
+					Thread.Sleep(1000);
 				}
 				catch (Exception e) {
 					;//todo: obsługa błędów
